@@ -19,14 +19,14 @@ class Save{
 
             if (type == "personData") {
                 if (personData != null) {
-                    userDatabase?.collection("USCCRecord")
+                    userDatabase?.collection("USCCData")
                         ?.document(userUID!!)
                         ?.collection("personData")
                         ?.add(personData)
                 }
             } else {
                 if (cumulativeData != null) {
-                    userDatabase?.collection("USCCRecord")
+                    userDatabase?.collection("USCCData")
                         ?.document(userUID!!)
                         ?.collection("cumulativeData")
                         ?.add(cumulativeData)
