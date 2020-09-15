@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:theme="@style/ThemeNoActionBar"
+    tools:context=".auth.SignIn">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:src="@drawable/doc_male"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detailsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:backgroundTint="#E4FFFFFF"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvVerifyIdentity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/verify_your_identity"
+                android:textColor="@color/colorPurple"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailInputLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvVerifyIdentity">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:textSize="16sp"
+                    tools:text="gacokieric@gmail.com" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordInputLay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                app:counterMaxLength="15"
+                app:layout_constraintEnd_toEndOf="@id/emailInputLay"
+                app:layout_constraintStart_toStartOf="@id/emailInputLay"
+                app:layout_constraintTop_toBottomOf="@id/emailInputLay">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_password"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/password"
+                    android:maxLength="16"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSignIn"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/round_corner"
+                android:backgroundTint="@color/colorPurple"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="5dp"
+                android:text="@string/sign_in"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/passwordInputLay"
+                app:layout_constraintStart_toStartOf="@id/passwordInputLay"
+                app:layout_constraintTop_toBottomOf="@id/passwordInputLay" />
+
+            <com.ldoublem.loadingviewlib.view.LVCircularRing
+                android:id="@+id/loadingView"
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                android:layout_margin="3dp"
+                android:elevation="10dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/btnSignIn"
+                app:layout_constraintEnd_toEndOf="@+id/btnSignIn"
+                app:layout_constraintStart_toStartOf="@+id/btnSignIn"
+                app:layout_constraintTop_toTopOf="@+id/btnSignIn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/tryAgainLay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/detailsCard"
+        app:layout_constraintStart_toStartOf="@id/detailsCard"
+        app:layout_constraintTop_toBottomOf="@id/detailsCard"
+        app:layout_constraintVertical_bias="0.3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/try_again_in"
+            android:textColor="@color/colorBlack" />
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:textColor="@color/colorBlack" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnForgotDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@drawable/normal_btn_selector"
+        android:paddingHorizontal="10dp"
+        android:text="@string/forgot_details"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tryAgainLay"
+        app:layout_constraintStart_toStartOf="@id/tryAgainLay"
+        app:layout_constraintTop_toBottomOf="@id/tryAgainLay" />
+
+    <Button
+        android:id="@+id/btnReportIssue"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@drawable/normal_btn_selector"
+        android:paddingHorizontal="10dp"
+        android:text="@string/report_issue"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tryAgainLay"
+        app:layout_constraintStart_toStartOf="@id/tryAgainLay"
+        app:layout_constraintTop_toBottomOf="@id/tryAgainLay" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

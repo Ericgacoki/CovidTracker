@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1063265208064",
+    "firebase_url": "https://uscc-record.firebaseio.com",
+    "project_id": "uscc-record",
+    "storage_bucket": "uscc-record.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063265208064:android:cac0184c042a2c7aeb95e5",
+        "android_client_info": {
+          "package_name": "com.ericg.usccrecord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063265208064-4tj18e5j50kk014kabom9h3ljkpl7s41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACRCoc2MbPJsHZvmeF2PdZeAN-P5WwZOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063265208064-4tj18e5j50kk014kabom9h3ljkpl7s41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

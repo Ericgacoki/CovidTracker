@@ -1,0 +1,108 @@
+package com.ericg.usccrecord
+
+import android.os.Bundle
+import android.os.Handler
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.ericg.usccrecord.Constants.AUTO_SIGN_IN
+import com.ericg.usccrecord.Constants.SHOW_ON_BOARD
+import kotlinx.android.synthetic.main.fragment_splash.*
+import kotlinx.android.synthetic.main.fragment_splash.view.*
+
+class SplashScreen : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+
+        val view = inflater.inflate(R.layout.fragment_splash, container, false)
+
+        val images = arrayOf(
+            ContextCompat.getDrawable(this.requireContext(), R.drawable.doc_male),
+            ContextCompat.getDrawable(this.requireContext(), R.drawable.doc_female),
+            ContextCompat.getDrawable(this.requireContext(), R.drawable.social_distance2),
+            ContextCompat.getDrawable(this.requireContext(), R.drawable.social_distance3),
+            ContextCompat.getDrawable(this.requireContext(), R.drawable.hand_wash1),
+            ContextCompat.getDrawable(this.requireContext(), R.drawable.trace1)
+        )
+        val randomIndex = (0..5).random()
+        val randomImage = images[randomIndex]
+
+        view.randomSplashImage.setImageDrawable(randomImage)
+
+        view.randomSplashText.text = when (randomIndex) {
+            0 -> {
+                "I can get it, you can get it, anyone can get it!"
+            }
+            1 -> {
+                "Protect me I protect you!"
+            }
+            2 -> {
+                "Keep a distance of 1M from one another!"
+            }
+            3 -> {
+                "Always put on your mask when in public!"
+            }
+            4 -> {
+                "Sanitize, wash your hands regularly and keep safe!"
+            }
+            // 5
+            else -> {
+                "Avoid stigmatizing fellow humans!"
+            }
+        }
+
+        animateViews()
+        nextAction()
+
+        return view
+    }
+
+    private fun animateViews() {
+      /*  randomSplashText.startAnimation(
+            AnimationUtils.loadAnimation(activity?.applicationContext, R.anim.fade_out_from_bottom)
+        )
+        randomSplashText.startAnimation(
+            AnimationUtils.loadAnimation(activity?.applicationContext, R.anim.fade_in_from_top)
+        )*/
+    }
+
+    @Suppress("DEPRECATION")
+    private fun nextAction() {
+
+        val autoSignIn =
+            requireActivity().getSharedPreferences(AUTO_SIGN_IN, 0).getBoolean(AUTO_SIGN_IN, false)
+        val showOnBoardScreen =
+            requireActivity().getSharedPreferences(SHOW_ON_BOARD, 0).getBoolean(SHOW_ON_BOARD, true)
+
+        Handler().postDelayed({
+            if (!autoSignIn && showOnBoardScreen) {
+                /* show onBoard screen */
+                findNavController().navigate(R.id.action_from_splashScreen_to_viewPager)
+
+            } else if (!autoSignIn && !showOnBoardScreen) {
+                /* prompt to sign in */
+                findNavController().navigate(R.id.action_from_splashScreen_to_signIn)
+                requireActivity().finish()
+
+            } else if (autoSignIn && !showOnBoardScreen) {
+                /* go to home */
+                findNavController().navigate(R.id.action_from_splashScreen_to_homeActivity)
+                requireActivity().finish()
+
+            } else {/*autoSignIn && showOnBoardScreen  */
+
+                // show onBoard screen
+                findNavController().navigate(R.id.action_from_splashScreen_to_viewPager)
+            }
+
+        }, 3000)
+    }
+}

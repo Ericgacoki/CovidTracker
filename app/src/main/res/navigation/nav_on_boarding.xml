@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_on_boarding"
+    app:startDestination="@id/splashScreen">
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.ericg.usccrecord.SplashScreen"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_from_splashScreen_to_viewPager"
+            app:destination="@id/viewPager"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_from_splashScreen_to_homeActivity"
+            app:destination="@id/homeActivity"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_from_splashScreen_to_signIn"
+            app:destination="@id/signIn"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewPager"
+        android:name="com.ericg.usccrecord.onBoardFragments.ViewPager"
+        android:label="ViewPager"
+        tools:layout="@layout/fragment_view_pager2">
+        <action
+            android:id="@+id/action_from_viewPager_to_homeActivity"
+            app:destination="@id/homeActivity" />
+
+        <action
+            android:id="@+id/action_from_viewPager_to_signIn"
+            app:destination="@id/signIn"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.ericg.usccrecord.activities.HomeActivity"
+        android:label="HomeActivity"
+        tools:layout="@layout/activity_home" />
+
+    <activity
+        android:id="@+id/signIn"
+        android:name="com.ericg.usccrecord.auth.SignIn"
+        android:label="SignInActivity"
+        tools:layout="@layout/activity_sign_in" />
+</navigation>

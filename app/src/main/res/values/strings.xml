@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">USCC Test Record</string>
+    <string name="optimum_speed">OPTIMUM SPEED IN ONE CLICK</string>
+    <string name="cloud_storage_speed">Cloud storage simplifies and fastens \'save\' and \'retrieve\' data processes. Multi-users support and real time updates  are among the many advantages of using this App!</string>
+    <string name="next">Next</string>
+    <string name="simple_to_use">SIMPLE TO USE</string>
+    <string name="simple_just_for_you"><b>No technical skills are required</b> to use this app. Everything has been made simple for you!</string>
+    <string name="no_data_leaks_nor_risks">NO DATA LEAKS NOR RISKS !</string>
+    <string name="data_safety">Data safety is our first priority when it comes to user experience. For this reason we\'ve ensured that only authorized people can access the database. \n\n <b>Enjoy the App!</b></string>
+    <string name="done">DONE</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="verify_your_identity">Verify your identity</string>
+    <string name="sign_in">sign in</string>
+    <string name="sign_out">Sign out</string>
+    <string name="try_again_in">Try again in :</string>
+    <string name="forgot_details">Forgot details ?</string>
+    <string name="report_issue">Report issue</string>
+</resources>
