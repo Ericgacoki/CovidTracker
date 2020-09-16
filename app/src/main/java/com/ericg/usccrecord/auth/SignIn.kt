@@ -115,7 +115,7 @@ class SignIn : AppCompatActivity() {
                     val password = etPassword.text.toString()
 
                     loading(true)
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                    mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {
                         if (it.isSuccessful) {
                             loading(false)
                             toast("signed in successfully")
@@ -148,6 +148,8 @@ class SignIn : AppCompatActivity() {
             }
 
             Handler().postDelayed({
+                startAnimation(AnimationUtils.loadAnimation(this@SignIn, R.anim.fade_in_from_top))
+
                 enableViews(true)
                 chronometer.stop()
                 tryAgainLay.visibility = INVISIBLE

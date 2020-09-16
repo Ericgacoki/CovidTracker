@@ -10,7 +10,7 @@ import com.google.firebase.firestore.FieldValue
 data class PersonData(
     val name: String,
     val gender: String,
-    val age: String,
+    val age: Int,
     val temp: Int,
     val phone: String,
     var date: Any?
@@ -19,4 +19,7 @@ data class PersonData(
     init {
         date = FieldValue.serverTimestamp()
     }
+
+    /* for fireStore data objects */
+    constructor() : this("", "", 0, 0, "", null)
 }

@@ -14,4 +14,5 @@
     <color name="colorPurple">#6200EE</color>
     <color name="colorTransparent">#0DFFFFFF</color>
     <color name="colorFadedBlack">#68222222</color>
+    <color name="colorTransPurple">#BF6200EE</color>
 </resources>
