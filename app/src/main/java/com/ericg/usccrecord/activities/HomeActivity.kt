@@ -4,17 +4,21 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import androidx.navigation.ui.NavigationUI
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.ericg.usccrecord.R
 import com.ericg.usccrecord.adapters.PersonDataAdapter
 import com.ericg.usccrecord.data.PersonData
 import com.ericg.usccrecord.extensions.Extensions.toast
+import com.ericg.usccrecord.firebase.GetData
 import com.ericg.usccrecord.firebase.SaveData
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -41,10 +45,10 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         setContentView(R.layout.activity_home)
 
         requestAppPermissions()
-
         onScroll()
         onSwipeToRefresh()
 
+        homeLoadingLay.setOnClickListener { }
         personDataRecyclerview.adapter = personDataAdapter
 
         btnAddPerson.setOnClickListener {
@@ -81,19 +85,48 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         })
     }
 
-    private fun loadData(refresh: Boolean){
-        if (refresh){
-            showLoading(false)
+    private fun showLoadingView(show: Boolean){
+        if (show){
+            homeLoadingLay.apply{
+                visibility = VISIBLE
 
-        } else{
-            showLoading(true)
-
+                homeLoadingView.apply{
+                    setViewColor(getColor(R.color.colorPurple))
+                    startAnim()
+                }
+            }
+        } else {
+            homeLoadingLay.visibility = INVISIBLE
         }
     }
 
+    private fun loadData(refresh: Boolean): MutableLiveData<Boolean>{
+        val done: MutableLiveData<Boolean> = MutableLiveData(false)
+
+        fun getData(){
+            GetData().get("personData")
+
+        }
+
+        if (refresh){
+            showLoadingView(false)
+            getData()
+
+        } else{
+            showLoadingView(true)
+        }
+        return done
+    }
+
     private fun onSwipeToRefresh() {
-
-
+        homeSwipeToRefresh.apply {
+            isRefreshing = true
+        }
+        loadData(true).observe(this, {done ->
+            when{
+                done -> homeSwipeToRefresh.isRefreshing = false
+            }
+        })
     }
 
     override fun onPersonClick(position: Int, id:Int?) {

@@ -7,7 +7,23 @@
     android:theme="@style/AppTheme"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/homeLoadingLay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:elevation="10dp"
+        android:visibility="invisible"
+        android:background="@color/colorWhite"
+        >
+        <com.ldoublem.loadingviewlib.view.LVWifi
+            android:id="@+id/homeLoadingView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/homeSwipeToRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
