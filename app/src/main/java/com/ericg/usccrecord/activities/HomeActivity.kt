@@ -33,6 +33,9 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         android.Manifest.permission.CALL_PHONE
     )
 
+    var peopleList : List<PersonData> = ArrayList()
+    var personDataAdapter = PersonDataAdapter(this, peopleList,this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -42,7 +45,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         onScroll()
         onSwipeToRefresh()
 
-        val personDataAdapter = PersonDataAdapter(null, this)
         personDataRecyclerview.adapter = personDataAdapter
 
         btnAddPerson.setOnClickListener {
@@ -58,12 +60,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                 toast("Please grant the requested permissions")
                 ActivityCompat.requestPermissions(this, arrayOf(permissions[3]), 1)
             }
-        }
-    }
-
-    private fun setUpSideNavigation(navController: NavController) {
-        sideNavView?.let {
-            NavigationUI.setupWithNavController(it, navController)
         }
     }
 
@@ -85,15 +81,26 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         })
     }
 
+    private fun loadData(refresh: Boolean){
+        if (refresh){
+            showLoading(false)
+
+        } else{
+            showLoading(true)
+
+        }
+    }
+
     private fun onSwipeToRefresh() {
+
 
     }
 
-    override fun onPersonClick(position: Int, view: View?) {
-        super.onPersonClick(position, view)
+    override fun onPersonClick(position: Int, id:Int?) {
+        super.onPersonClick(position, id)
         toast("you clicked item ${position + 1}")
 
-        when (view?.id) {
+        when (id) {
 
         }
     }

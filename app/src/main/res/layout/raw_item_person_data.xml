@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -18,25 +19,25 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite">
+            android:background="@drawable/person_card_bg">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_delete"
-                app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_delete_forever"
+                app:layout_constraintBottom_toBottomOf="@+id/personProfilePic"
                 app:layout_constraintEnd_toEndOf="@+id/cardView"
-                app:layout_constraintHorizontal_bias="0.991"
-                app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                app:layout_constraintTop_toTopOf="@+id/circleImageView"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@+id/personProfilePic"
+                app:layout_constraintTop_toTopOf="@+id/personProfilePic"
+                app:layout_constraintVertical_bias="0" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/personName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                android:text="Eric gacoki"
+                android:fontFamily="sans-serif-thin"
                 android:textColor="@color/colorPurple"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -44,34 +45,35 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/personProfilePic"
+                tools:text="Eric gacoki M" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circleImageView2"
+                android:id="@+id/tempIndicatorDot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_danger_dot"
-                app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-                app:layout_constraintEnd_toStartOf="@+id/circleImageView"
+                android:src="@drawable/ic_safe_dot"
+                app:layout_constraintBottom_toBottomOf="@+id/personProfilePic"
+                app:layout_constraintEnd_toStartOf="@+id/personProfilePic"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/cardView"
-                app:layout_constraintTop_toTopOf="@+id/circleImageView"
+                app:layout_constraintTop_toTopOf="@+id/personProfilePic"
                 app:layout_constraintVertical_bias="0.168" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tempIndicatorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
-                android:text="37.9 *C"
-                app:layout_constraintBottom_toBottomOf="@+id/circleImageView2"
+                app:layout_constraintBottom_toBottomOf="@+id/tempIndicatorDot"
                 app:layout_constraintEnd_toEndOf="@+id/cardView"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toEndOf="@+id/circleImageView2"
-                app:layout_constraintTop_toTopOf="@+id/circleImageView2" />
+                app:layout_constraintStart_toEndOf="@+id/tempIndicatorDot"
+                app:layout_constraintTop_toTopOf="@+id/tempIndicatorDot"
+                tools:text="00 *C" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circleImageView"
+                android:id="@+id/personProfilePic"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="15dp"
@@ -92,13 +94,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/circleImageView"
+                app:layout_constraintTop_toBottomOf="@+id/personProfilePic"
                 app:layout_constraintVertical_bias="1">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#CEFFFFFF">
+                    android:background="@color/colorWhite">
 
                     <TextView
                         android:id="@+id/textView6"
@@ -106,31 +108,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginVertical="10dp"
-                        android:text="Gender"
+                        android:text="@string/gender"
                         app:layout_constraintBottom_toTopOf="@+id/textView5"
                         app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="15dp"
-                        android:text="Male"
                         app:layout_constraintBottom_toBottomOf="@+id/textView6"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/guideline"
                         app:layout_constraintTop_toTopOf="@+id/textView6"
-                        app:layout_constraintVertical_bias="0" />
+                        app:layout_constraintVertical_bias="0"
+                        tools:text="Male" />
 
                     <TextView
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
-                        android:text="Phone"
+                        android:text="@string/phone"
                         app:layout_constraintBottom_toTopOf="@+id/textView7"
                         app:layout_constraintEnd_toEndOf="@+id/textView6"
                         app:layout_constraintHorizontal_bias="0"
@@ -138,22 +140,22 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0716965216"
-                        app:layout_constraintBottom_toTopOf="@+id/textView10"
-                        app:layout_constraintEnd_toEndOf="@+id/textView8"
+                        app:layout_constraintBottom_toTopOf="@+id/date"
+                        app:layout_constraintEnd_toEndOf="@+id/gender"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="@+id/textView8"
-                        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                        app:layout_constraintStart_toStartOf="@+id/gender"
+                        app:layout_constraintTop_toBottomOf="@+id/gender"
+                        tools:text="0716965216" />
 
                     <TextView
                         android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
-                        android:text="Date"
+                        android:text="@string/date"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView5"
                         app:layout_constraintHorizontal_bias="0"
@@ -161,15 +163,18 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sun, Oct 28 2020"
+                        android:ellipsize="marquee"
+                        android:maxLength="30"
+                        android:singleLine="true"
                         app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                        app:layout_constraintEnd_toEndOf="@+id/textView9"
+                        app:layout_constraintEnd_toEndOf="@+id/phone"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="@+id/textView9"
-                        app:layout_constraintTop_toTopOf="@+id/textView7" />
+                        app:layout_constraintStart_toStartOf="@+id/phone"
+                        app:layout_constraintTop_toTopOf="@+id/textView7"
+                        tools:text="Sun, Oct 28 2020 at 10:20 EAT" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline"
@@ -179,18 +184,28 @@
                         app:layout_constraintGuide_percent="0.25" />
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:id="@+id/callIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_call"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                        app:layout_constraintBottom_toBottomOf="@+id/phone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.9"
-                        app:layout_constraintStart_toEndOf="@+id/textView9"
-                        app:layout_constraintTop_toTopOf="@+id/textView9" />
+                        app:layout_constraintStart_toEndOf="@+id/phone"
+                        app:layout_constraintTop_toTopOf="@+id/phone" />
 
+                    <ImageView
+                        android:id="@+id/mapIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_location"
+                        app:layout_constraintBottom_toBottomOf="@+id/date"
+                        app:layout_constraintEnd_toEndOf="@+id/callIcon"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintStart_toEndOf="@+id/date"
+                        app:layout_constraintTop_toTopOf="@+id/date" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

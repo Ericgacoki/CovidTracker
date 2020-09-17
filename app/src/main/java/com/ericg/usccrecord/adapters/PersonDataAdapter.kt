@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.ericg.usccrecord.R
+import com.ericg.usccrecord.data.PersonData
 
 /**
  * @author eric
@@ -14,7 +15,7 @@ import com.ericg.usccrecord.R
  */
 class PersonDataAdapter(
     private var context: Context?,
-    /*private val peopleDataList: List<PersonData>,*/
+    private val peopleDataList: List<PersonData>,
     private val clickListener: PersonClickListener
 ) : RecyclerView.Adapter<PersonDataAdapter.PersonViewHolder>() {
     private var adapterPosition = -1
@@ -57,12 +58,12 @@ class PersonDataAdapter(
         }
 
         override fun onClick(view: View?) {
-            clickListener.onPersonClick(adapterPosition, view)
+            clickListener.onPersonClick(adapterPosition, view?.id)
         }
     }
 
     interface PersonClickListener {
-        fun onPersonClick(position: Int, view: View?) {
+        fun onPersonClick(position: Int, id: Int?) {
         }
     }
 }

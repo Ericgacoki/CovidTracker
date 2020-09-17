@@ -17,4 +17,7 @@
     <string name="forgot_details">Forgot details ?</string>
     <string name="report_issue">Report issue</string>
     <string name="plus">+</string>
+    <string name="gender">Gender</string>
+    <string name="phone">Phone</string>
+    <string name="date">Date</string>
 </resources>
