@@ -1,15 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:theme="@style/AppTheme"
-    android:layout_height="match_parent">
+    android:theme="@style/AppTheme">
+
+    <ImageView
+        android:id="@+id/ivNoData"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:elevation="5dp"
+        android:src="@drawable/mask_correct2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvNoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:text="@string/no_data_text"
+        android:textColor="@color/colorPurple"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivNoData"
+        app:layout_constraintStart_toStartOf="@+id/ivNoData"
+        app:layout_constraintTop_toBottomOf="@+id/ivNoData"
+        app:layout_constraintVertical_bias="0.10" />
+
+    <LinearLayout
+        android:id="@+id/homeLoadingLay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorWhite"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.ldoublem.loadingviewlib.view.LVWifi
+            android:id="@+id/homeLoadingView"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_height="0dp"
+        android:id="@+id/homeSwipeToRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvNoData"
+        app:layout_constraintStart_toEndOf="@+id/tvNoData"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/personDataRecyclerview"

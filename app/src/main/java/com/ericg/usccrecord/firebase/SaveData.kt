@@ -17,17 +17,17 @@ class SaveData {
     fun newEntry(type: String, personData: PersonData?, cumulativeData: CumulativeData?) {
         val userUID = mUser?.uid
         GlobalScope.launch(Dispatchers.IO) {
-
+// todo set root collection to USCCMembers
             if (type == "personData") {
                 if (personData != null) {
-                    userDatabase?.collection("USCCUsers")
+                    userDatabase?.collection("USCCMember1")
                         ?.document(userUID!!)
                         ?.collection("personData")
                         ?.add(personData)
                 }
             } else {
                 if (cumulativeData != null) {
-                    userDatabase?.collection("USCCUsers")
+                    userDatabase?.collection("USCCMembers")
                         ?.document(userUID!!)
                         ?.collection("cumulativeData")
                         ?.add(cumulativeData)

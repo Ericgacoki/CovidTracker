@@ -1,21 +1,24 @@
 package com.ericg.usccrecord.activities
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import androidx.navigation.ui.NavigationUI
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.ericg.usccrecord.R
 import com.ericg.usccrecord.adapters.PersonDataAdapter
 import com.ericg.usccrecord.data.PersonData
 import com.ericg.usccrecord.extensions.Extensions.toast
+import com.ericg.usccrecord.firebase.GetData
 import com.ericg.usccrecord.firebase.SaveData
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_home.*
 
 /**
@@ -33,19 +36,28 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         android.Manifest.permission.CALL_PHONE
     )
 
-    var peopleList : List<PersonData> = ArrayList()
-    var personDataAdapter = PersonDataAdapter(this, peopleList,this)
+    var peopleList: List<PersonData> = ArrayList()
+    var personDataAdapter = PersonDataAdapter(this, peopleList, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        personDataRecyclerview.adapter = personDataAdapter
 
         requestAppPermissions()
-
+        setClickListeners()
         onScroll()
         onSwipeToRefresh()
+        loadData(false).observe(this, { done ->
+            when {
+                done -> homeLoadingLay.visibility = INVISIBLE
+            }
+        })
+    }
 
-        personDataRecyclerview.adapter = personDataAdapter
+    @SuppressLint("InflateParams")
+    private fun setClickListeners() {
+        homeLoadingLay.setOnClickListener { }
 
         btnAddPerson.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
@@ -53,17 +65,31 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                 ) == PackageManager.PERMISSION_GRANTED
             ) { // todo open createPerson data btm sheet dialog
 
-                val person = PersonData("Eric", "male", 19, 36, "0716965216", null)
+                val sheetDialog = BottomSheetDialog(this, 0)
+                val sheetView = layoutInflater.inflate(R.layout.raw_item_person_data_inputs, null)
+
+                sheetView.apply {
+                    // todo create logic here
+                }
+
+                sheetDialog.apply {
+                    setContentView(sheetView)
+                    show()
+                }
+
+                val person = PersonData(
+                    "Mercie Irene", "female", 19, 34, "0717...000", null, "karinga", null
+                )
                 SaveData().newEntry("personData", person, null)
 
             } else {
+                ActivityCompat.requestPermissions(this, arrayOf(permissions[3]), 5)
                 toast("Please grant the requested permissions")
-                ActivityCompat.requestPermissions(this, arrayOf(permissions[3]), 1)
             }
         }
     }
 
-    private fun requestAppPermissions() = ActivityCompat.requestPermissions(this, permissions, 0)
+    private fun requestAppPermissions() = ActivityCompat.requestPermissions(this, permissions, 1)
 
     private fun onScroll() {
         personDataRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -81,27 +107,102 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         })
     }
 
-    private fun loadData(refresh: Boolean){
-        if (refresh){
-            showLoading(false)
+    private fun showLoadingView(show: Boolean) {
+        if (show) {
+            homeLoadingLay.apply {
+                visibility = VISIBLE
 
-        } else{
-            showLoading(true)
+                homeLoadingView.apply {
+                    setViewColor(getColor(R.color.colorPurple))
+                    startAnim()
+                }
+            }
+        } else {
+            homeLoadingLay.visibility = INVISIBLE
+        }
+    }
 
+    private fun loadData(refreshing: Boolean): MutableLiveData<Boolean> {
+        val complete: MutableLiveData<Boolean> = MutableLiveData(false)
+
+        fun getData() {
+            complete.value = false
+
+            GetData().get("personData")?.addOnCompleteListener {
+                complete.value = true
+                if (it.isSuccessful) {
+
+                    peopleList = it.result!!.toObjects(PersonData::class.java)
+                    personDataAdapter.peopleDataList = peopleList
+                    personDataAdapter.notifyDataSetChanged()
+
+                    when (val loadedPeople = peopleList.size) {
+                        0 -> {
+                            toast("no data yet!")
+                            displayNoDataMessage(true)
+                        }
+                        1 -> {
+                            toast("loaded 1 person successfully!")
+                            displayNoDataMessage(false)
+                        }
+                        else -> {
+                            toast("loaded $loadedPeople people successfully!")
+                            displayNoDataMessage(false)
+                        }
+                    }
+
+                } else {
+                    toast("loading failed")
+                }
+            }
+        }
+
+        if (refreshing) {
+            showLoadingView(false)
+            getData()
+
+        } else {
+            showLoadingView(true)
+            getData()
+        }
+
+        return complete
+    }
+
+    private fun displayNoDataMessage(display: Boolean) {
+        if (display) {
+            ivNoData.visibility = VISIBLE
+            tvNoData.visibility = VISIBLE
+        } else {
+            ivNoData.visibility = INVISIBLE
+            tvNoData.visibility = INVISIBLE
         }
     }
 
     private fun onSwipeToRefresh() {
-
-
+        homeSwipeToRefresh.apply {
+            setOnRefreshListener {
+                loadData(true).observe(this@HomeActivity, { done ->
+                    when {
+                        done -> this.isRefreshing = false
+                    }
+                })
+            }
+        }
     }
 
-    override fun onPersonClick(position: Int, id:Int?) {
+    override fun onPersonClick(position: Int, id: Int?) {
         super.onPersonClick(position, id)
-        toast("you clicked item ${position + 1}")
-
         when (id) {
-
+            R.id.deleteIcon -> {
+                toast("delete ${peopleList[position].name}")
+            }
+            R.id.callIcon -> {
+                toast("call ${peopleList[position].name}")
+            }
+            R.id.mapIcon -> {
+                toast("map for ${peopleList[position].locationName}")
+            }
         }
     }
 

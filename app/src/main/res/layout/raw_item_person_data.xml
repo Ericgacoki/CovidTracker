@@ -22,6 +22,7 @@
             android:background="@drawable/person_card_bg">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/deleteIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_delete_forever"
@@ -40,19 +41,20 @@
                 android:fontFamily="sans-serif-thin"
                 android:textColor="@color/colorPurple"
                 android:textSize="16sp"
+                android:maxLength="30"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/cardView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/personProfilePic"
-                tools:text="Eric gacoki M" />
+                tools:text="Person Name" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/tempIndicatorDot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_safe_dot"
+                tools:src="@drawable/ic_danger_dot"
                 app:layout_constraintBottom_toBottomOf="@+id/personProfilePic"
                 app:layout_constraintEnd_toStartOf="@+id/personProfilePic"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -89,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="10dp"
+                android:layout_marginVertical="7dp"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +111,9 @@
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginVertical="10dp"
                         android:text="@string/gender"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        app:drawableStartCompat="@drawable/ic_gender"
                         app:layout_constraintBottom_toTopOf="@+id/textView5"
                         app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintStart_toStartOf="parent"
@@ -119,13 +124,51 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="15dp"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="@+id/textView6"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/guideline"
                         app:layout_constraintTop_toTopOf="@+id/textView6"
                         app:layout_constraintVertical_bias="0"
-                        tools:text="Male" />
+                        tools:text="unknown" />
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="#A6000000"
+                        app:layout_constraintBottom_toTopOf="@+id/phone"
+                        app:layout_constraintEnd_toStartOf="@+id/textView3"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/gender"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="35dp"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:text="Age"
+                        app:drawableStartCompat="@drawable/ic_age"
+                        app:layout_constraintBottom_toBottomOf="@+id/gender"
+                        app:layout_constraintStart_toEndOf="@+id/gender"
+                        app:layout_constraintTop_toTopOf="@+id/gender" />
+
+                    <TextView
+                        android:id="@+id/age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                        app:layout_constraintEnd_toStartOf="@+id/callIcon"
+                        app:layout_constraintHorizontal_bias="0.2"
+                        app:layout_constraintStart_toEndOf="@+id/textView3"
+                        app:layout_constraintTop_toTopOf="@+id/textView3"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="00 Yrs" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -133,6 +176,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
                         android:text="@string/phone"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        app:drawableStartCompat="@drawable/ic_phone"
                         app:layout_constraintBottom_toTopOf="@+id/textView7"
                         app:layout_constraintEnd_toEndOf="@+id/textView6"
                         app:layout_constraintHorizontal_bias="0"
@@ -148,7 +194,7 @@
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="@+id/gender"
                         app:layout_constraintTop_toBottomOf="@+id/gender"
-                        tools:text="0716965216" />
+                        tools:text="0000000" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -156,6 +202,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
                         android:text="@string/date"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        app:drawableStartCompat="@drawable/ic_date"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView5"
                         app:layout_constraintHorizontal_bias="0"
@@ -170,11 +219,11 @@
                         android:maxLength="30"
                         android:singleLine="true"
                         app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                        app:layout_constraintEnd_toEndOf="@+id/phone"
+                        app:layout_constraintEnd_toStartOf="@+id/callIcon"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="@+id/phone"
                         app:layout_constraintTop_toTopOf="@+id/textView7"
-                        tools:text="Sun, Oct 28 2020 at 10:20 EAT" />
+                        tools:text="Day, Mon 00 0000 at 00:00 EAT" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline"
@@ -192,7 +241,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.9"
                         app:layout_constraintStart_toEndOf="@+id/phone"
-                        app:layout_constraintTop_toTopOf="@+id/phone" />
+                        app:layout_constraintTop_toTopOf="@+id/phone"
+                        app:layout_constraintVertical_bias="1.0" />
 
                     <ImageView
                         android:id="@+id/mapIcon"

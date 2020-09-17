@@ -13,13 +13,28 @@ data class PersonData(
     val age: Int,
     val temp: Int,
     val phone: String,
-    var date: Any?
-
+    var date: Any?,
+    var locationName: String?,
+    var locationCode: String?
 ) {
     init {
         date = FieldValue.serverTimestamp()
+        locationCode = when (locationName) {
+            // todo pass the villages into a spinner fill the appropriate location codes
+            "githure" -> "map code"
+            "kiamugumo" -> ""
+            "gituba" -> ""
+            "ngariama" -> ""
+            "karinga" -> ""
+            "kiriko" -> ""
+            "gaciongo" -> ""
+            "gitemani" -> ""
+            "kiamutugu" -> ""
+            "other" -> ""
+            else -> "set githure code as default"
+        }
     }
 
     /* for fireStore data objects */
-    constructor() : this("", "", 0, 0, "", null)
+    constructor() : this("", "", 0, 0, "", null, null, null)
 }
