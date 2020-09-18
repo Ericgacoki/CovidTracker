@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2020. This software is owned by @Eric_gacoki
+ */
+
 package com.ericg.usccrecord.firebase
 
-import com.ericg.usccrecord.model.CumulativeData
-import com.ericg.usccrecord.model.PersonData
 import com.ericg.usccrecord.firebase.FirebaseUtils.mUser
 import com.ericg.usccrecord.firebase.FirebaseUtils.userDatabase
+import com.ericg.usccrecord.model.CumulativeData
+import com.ericg.usccrecord.model.PersonData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

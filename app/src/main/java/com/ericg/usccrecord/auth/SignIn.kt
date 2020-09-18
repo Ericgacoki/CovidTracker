@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020. This software is owned by @Eric_gacoki
+ */
+
 package com.ericg.usccrecord.auth
 
 import android.content.Intent
@@ -11,8 +15,8 @@ import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.ericg.usccrecord.extensions.Constants.AUTO_SIGN_IN
 import com.ericg.usccrecord.R
+import com.ericg.usccrecord.extensions.Constants.AUTO_SIGN_IN
 import com.ericg.usccrecord.extensions.Extensions.sendEmail
 import com.ericg.usccrecord.extensions.Extensions.snackBuilder
 import com.ericg.usccrecord.extensions.Extensions.toast

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
+  -->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -61,12 +65,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginTop="15dp"
         android:textColorHint="#456"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:theme="@style/Theme.MaterialComponents"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
@@ -139,12 +143,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="20dp"
         android:textColorHint="#456"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:theme="@style/Theme.MaterialComponents"
         app:layout_constraintBottom_toTopOf="@+id/btnSaveNewEntry"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
