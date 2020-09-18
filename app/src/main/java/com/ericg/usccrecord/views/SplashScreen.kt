@@ -1,17 +1,16 @@
-package com.ericg.usccrecord
+package com.ericg.usccrecord.views
 
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.ericg.usccrecord.Constants.AUTO_SIGN_IN
-import com.ericg.usccrecord.Constants.SHOW_ON_BOARD
-import kotlinx.android.synthetic.main.fragment_splash.*
+import com.ericg.usccrecord.extensions.Constants.AUTO_SIGN_IN
+import com.ericg.usccrecord.extensions.Constants.SHOW_ON_BOARD
+import com.ericg.usccrecord.R
 import kotlinx.android.synthetic.main.fragment_splash.view.*
 
 class SplashScreen : Fragment() {
@@ -93,13 +92,12 @@ class SplashScreen : Fragment() {
                 requireActivity().finish()
 
             } else if (autoSignIn && !showOnBoardScreen) {
-                /* go to home */
+                /* user is already signed in */
                 findNavController().navigate(R.id.action_from_splashScreen_to_homeActivity)
                 requireActivity().finish()
 
             } else {/*autoSignIn && showOnBoardScreen  */
-
-                // show onBoard screen
+                // this is practically impossible
                 findNavController().navigate(R.id.action_from_splashScreen_to_viewPager)
             }
 

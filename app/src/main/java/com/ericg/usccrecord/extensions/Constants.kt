@@ -1,4 +1,4 @@
-package com.ericg.usccrecord
+package com.ericg.usccrecord.extensions
 
 /**
  * @author eric

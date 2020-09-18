@@ -6,7 +6,7 @@
     app:startDestination="@id/splashScreen">
     <fragment
         android:id="@+id/splashScreen"
-        android:name="com.ericg.usccrecord.SplashScreen"
+        android:name="com.ericg.usccrecord.views.SplashScreen"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
@@ -42,7 +42,7 @@
 
     <activity
         android:id="@+id/homeActivity"
-        android:name="com.ericg.usccrecord.activities.HomeActivity"
+        android:name="com.ericg.usccrecord.views.HomeActivity"
         android:label="HomeActivity"
         tools:layout="@layout/activity_home" />
 

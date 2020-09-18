@@ -10,19 +10,15 @@ import com.google.firebase.firestore.QuerySnapshot
  * @date 9/16/20
  */
 class GetData {
-    private val userUID = mUser?.uid
     fun get(type: String): Task<QuerySnapshot>? {
+        val userUID = mUser?.uid as String
         return if (type == "personData") {
             // todo set root collection to USCCMembers
-            FirebaseUtils.userDatabase?.collection("USCCMember1")
-                ?.document(userUID!!)
-                ?.collection("personData")
+            FirebaseUtils.userDatabase?.collection("USCCMember1/${userUID}/personData")
                 ?.orderBy("date", Query.Direction.DESCENDING)
                 ?.get()
         } else {
-            FirebaseUtils.userDatabase?.collection("USCCMembers")
-                ?.document(userUID!!)
-                ?.collection("cumulativeData")
+            FirebaseUtils.userDatabase?.collection("USCCMember1/${userUID}/cumulativeData")
                 ?.orderBy("date", Query.Direction.DESCENDING)
                 ?.get()
         }

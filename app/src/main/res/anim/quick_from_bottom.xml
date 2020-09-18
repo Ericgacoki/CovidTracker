@@ -5,6 +5,6 @@
         android:fromAlpha="0.5"
         android:toAlpha="1" />
     <translate
-        android:fromXDelta="-100"
-        android:toXDelta="0" />
+        android:fromYDelta="100"
+        android:toYDelta="0" />
 </set>

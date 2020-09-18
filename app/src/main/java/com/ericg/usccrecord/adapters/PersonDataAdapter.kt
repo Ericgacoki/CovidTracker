@@ -1,16 +1,19 @@
+/*
+ * Copyright (c) 2020. This software is owned by @Eric_gacoki
+ */
+
 package com.ericg.usccrecord.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ericg.usccrecord.R
-import com.ericg.usccrecord.data.PersonData
+import com.ericg.usccrecord.model.PersonData
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.raw_item_person_data.view.*
 
@@ -18,12 +21,13 @@ import kotlinx.android.synthetic.main.raw_item_person_data.view.*
  * @author eric
  * @date 9/16/20
  */
+
 class PersonDataAdapter(
     private var context: Context?,
     var peopleDataList: List<PersonData>,
     private val clickListener: PersonClickListener
 ) : RecyclerView.Adapter<PersonDataAdapter.PersonViewHolder>() {
-    private var itemPosition = -1
+    private var prevPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder =
         PersonViewHolder(
@@ -44,11 +48,12 @@ class PersonDataAdapter(
         )
 
         context = holder.itemView.context
-        itemPosition = if (((position + 2) % 2 == 0)) {
-            holder.itemView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.from_left))
+        prevPosition = if (prevPosition > position) {
+            // disable animations
+            // holder.itemView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.quick_from_top))
             position
         } else {
-            holder.itemView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.from_right))
+            // holder.itemView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.quick_from_bottom))
             position
         }
     }
@@ -84,7 +89,7 @@ class PersonDataAdapter(
             name: String,
             gender: String,
             age: Int,
-            temp: Int,
+            temp: Float,
             phone: String,
             date: Any?
         ) {

@@ -1,4 +1,4 @@
-package com.ericg.usccrecord.data
+package com.ericg.usccrecord.model
 
 /**
  * @author eric

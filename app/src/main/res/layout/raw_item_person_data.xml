@@ -54,7 +54,7 @@
                 android:id="@+id/tempIndicatorDot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:src="@drawable/ic_danger_dot"
+                tools:src="@drawable/ic_safe_dot"
                 app:layout_constraintBottom_toBottomOf="@+id/personProfilePic"
                 app:layout_constraintEnd_toStartOf="@+id/personProfilePic"
                 app:layout_constraintHorizontal_bias="0.0"

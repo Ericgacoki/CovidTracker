@@ -11,13 +11,13 @@ import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.ericg.usccrecord.Constants.AUTO_SIGN_IN
+import com.ericg.usccrecord.extensions.Constants.AUTO_SIGN_IN
 import com.ericg.usccrecord.R
-import com.ericg.usccrecord.activities.HomeActivity
 import com.ericg.usccrecord.extensions.Extensions.sendEmail
 import com.ericg.usccrecord.extensions.Extensions.snackBuilder
 import com.ericg.usccrecord.extensions.Extensions.toast
 import com.ericg.usccrecord.firebase.FirebaseUtils.mAuth
+import com.ericg.usccrecord.views.HomeActivity
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_in.view.*
 
@@ -158,7 +158,7 @@ class SignIn : AppCompatActivity() {
     }
 
     private fun enableViews(enabled: Boolean) {
-        val views = arrayOf(etEmail, etPassword, btnSignIn)
+        val views = arrayOf(etEmail, etPassword, btnSignIn, btnForgotDetails, btnReportIssue)
         if (enabled) {
             views.forEach { view ->
                 view.apply {
@@ -178,19 +178,20 @@ class SignIn : AppCompatActivity() {
 
     private fun loading(show: Boolean) {
         loadingView.visibility = if (show) {
+            btnSignIn.text = ""
+            btnSignIn.isClickable = false
+
             loadingView.apply {
                 setViewColor(R.color.colorWhite)
                 startAnim()
             }
-            VISIBLE
-        } else INVISIBLE
 
-        if (show) {
-            btnSignIn.text = ""
-            btnSignIn.isClickable = false
+            VISIBLE
         } else {
             btnSignIn.text = getString(R.string.sign_in)
             btnSignIn.isClickable = true
+
+            INVISIBLE
         }
     }
 

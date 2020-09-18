@@ -21,4 +21,10 @@
     <string name="phone">Phone</string>
     <string name="date">Date</string>
     <string name="no_data_text">No data yet. Click \'+\' button below to add</string>
+    <string name="cancel">cancel</string>
+    <string name="save">Save</string>
+    <string name="hint_name">Name</string>
+    <string name="temp">Temp</string>
+    <string name="location">Location</string>
+    <string name="age">Age</string>
 </resources>

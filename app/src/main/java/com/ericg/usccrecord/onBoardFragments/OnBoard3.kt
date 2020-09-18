@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.ericg.usccrecord.Constants.AUTO_SIGN_IN
-import com.ericg.usccrecord.Constants.SHOW_ON_BOARD
+import com.ericg.usccrecord.extensions.Constants.AUTO_SIGN_IN
+import com.ericg.usccrecord.extensions.Constants.SHOW_ON_BOARD
 import com.ericg.usccrecord.R
 import kotlinx.android.synthetic.main.fragment_on_board3.view.*
 

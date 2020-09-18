@@ -15,4 +15,7 @@
     <color name="colorTransparent">#0DFFFFFF</color>
     <color name="colorFadedBlack">#68222222</color>
     <color name="colorTransPurple">#BF6200EE</color>
+    <color name="colorBtnCancelEnabled">#FF9C00</color>
+    <color name="colorBtnSaveEnabled">@color/colorPurple</color>
+    <color name="colorBtnClicked">#F28E8383</color>
 </resources>
