@@ -4,11 +4,17 @@
 
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/colorPurple</item>
         <item name="colorPrimaryDark">@color/colorPurple</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="ThemeMaterialComponents" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="colorPrimaryDark">@color/colorPurple</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="ThemeSemiFullScreen" parent="Theme.AppCompat.Light.NoActionBar">

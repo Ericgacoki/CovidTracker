@@ -59,7 +59,7 @@ class SignIn : AppCompatActivity() {
         btnReportIssue.setOnClickListener {
             sendEmail(
                 "Sign in issue",
-                "Hello, please remind me the sign in details for USCC App.",
+                "<issue description>",
                 to = arrayOf("gacokieric@gmail.com")
             )
         }

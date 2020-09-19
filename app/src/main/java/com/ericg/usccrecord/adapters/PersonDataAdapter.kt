@@ -16,6 +16,7 @@ import com.ericg.usccrecord.R
 import com.ericg.usccrecord.model.PersonData
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.raw_item_person_data.view.*
+import java.util.*
 
 /**
  * @author eric
@@ -114,7 +115,7 @@ class PersonDataAdapter(
 
             /* set profile pic */
 
-            if (gender == "male") {
+            if (gender.toLowerCase(Locale.ROOT) == "male") {
                 this.personProfilePic.setImageDrawable(context?.let {
                     ContextCompat.getDrawable(it, R.drawable.man_mask)
                 })

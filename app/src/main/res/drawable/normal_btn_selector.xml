@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
+  -->
+
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@color/colorFadedBlack"
         android:state_pressed="true"/>
 
     <item android:drawable="@color/colorTransparent" android:state_enabled="true" />
-
 
 </selector>

@@ -8,9 +8,12 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,10 +26,13 @@ import com.ericg.usccrecord.extensions.Extensions.makeCall
 import com.ericg.usccrecord.extensions.Extensions.toast
 import com.ericg.usccrecord.extensions.Extensions.viewMap
 import com.ericg.usccrecord.firebase.GetData
+import com.ericg.usccrecord.firebase.SaveData
 import com.ericg.usccrecord.model.PersonData
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.create_person_inputs.view.*
+import kotlin.properties.Delegates
 
 /**
  * @author eric
@@ -42,16 +48,31 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.CALL_PHONE
     )
+    private lateinit var sheetDialog: BottomSheetDialog
+    private lateinit var sheetView: View
+    private lateinit var name: String
+    private lateinit var phone: String
+    private var notEmpty: Boolean by Delegates.notNull()
+    private lateinit var inputs: Array<TextInputEditText>
+    private lateinit var gender: String
+    private lateinit var locationName: String
+    private lateinit var personData: PersonData
 
-    var peopleList: List<PersonData> = ArrayList()
-    var personDataAdapter = PersonDataAdapter(this, peopleList, this)
+    private val genders: Array<String> = arrayOf("Male", "Female")
+    private val locations: Array<String> = arrayOf(
+        "Githure", "Gituba", "Ngerwe", "Ngariama", "Nyangeni",
+        "Gitemani", "Gaciongo", "Kiriko", "Karinga", "Kiamugumo", "Other"
+    )
+
+    private var peopleList: List<PersonData> = ArrayList()
+    private var personDataAdapter = PersonDataAdapter(this, peopleList, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         personDataRecyclerview.adapter = personDataAdapter
 
-        requestAppPermissions()
+        requestAppPermissions() /* if not permitted */
         setClickListeners()
         onScroll()
         onSwipeToRefresh()
@@ -71,28 +92,98 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                     this, permissions[3]
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-
-                val sheetDialog = BottomSheetDialog(this, 0)
-                val sheetView = layoutInflater.inflate(R.layout.create_person_inputs, null)
+                sheetDialog = BottomSheetDialog(this)
+                sheetView =
+                    layoutInflater.inflate(
+                        R.layout.create_person_inputs, findViewById(R.id.createPersonInputsLay)
+                    )
 
                 sheetView.apply {
-                    btnCancelEntry.setOnClickListener {
-                        sheetDialog.cancel()
+                    inputs = arrayOf(
+                        personName, personPhone, personTemp, personAge
+                    )
+                    this.genderSpinner.apply {
+                        adapter = ArrayAdapter(
+                            this@HomeActivity,
+                            R.layout.support_simple_spinner_dropdown_item, genders
+                        )
+
+                        onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(
+                                adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
+                            ) {
+                                gender = adapterView?.getItemAtPosition(position).toString()
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {}
+                        }
                     }
+
+                    this.locationSpinner.apply {
+                        adapter = ArrayAdapter(
+                            this@HomeActivity,
+                            R.layout.support_simple_spinner_dropdown_item, locations
+                        )
+                        onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(
+                                adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
+                            ) {
+                                locationName = adapterView?.getItemAtPosition(position).toString()
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {}
+                        }
+                    }
+
+                    btnCancelEntry.setOnClickListener { sheetDialog.dismiss() }
+
                     btnSaveNewEntry.setOnClickListener {
-                        customToast(context = this@HomeActivity, message = "saving is not ready" )
+
+                        name = personName.text.toString().trim()
+                        phone = personPhone.text.toString().trim()
+
+                        notEmpty = personName.text.toString().trim().isNotEmpty() &&
+                                personPhone.text.toString().trim().isNotEmpty() &&
+                                personTemp.text.toString().trim().isNotEmpty() &&
+                                personAge.text.toString().trim().isNotEmpty()
+
+                        if (notEmpty) {
+                            val age = personAge.text.toString().toInt()
+                            val temp = personTemp.text.toString().toFloat()
+
+                            personData =
+                                PersonData(name, gender, age, temp, phone, null, locationName, null)
+                            SaveData().newEntry("personData", personData, null)
+                                .observe(this@HomeActivity, { success ->
+                                    if (success) {
+                                        sheetDialog.dismiss()
+                                        loadData(false).observe(this@HomeActivity, { complete ->
+                                            if (complete) showLoadingView(false)
+                                        })
+                                    }
+                                })
+// todo remove the following 2 lines
+                            sheetDialog.dismiss()
+                            loadData(true)
+                        } else {
+                            inputs.forEach {
+                                if (it.text.toString().trim().isEmpty()) {
+                                    it.error = "${it.hint} is required"
+                                }
+                            }
+                        }
+
+
                     }
                 }
 
                 sheetDialog.apply {
-                    setContentView(sheetView)
+                    setContentView(sheetView, findViewById(R.id.createPersonInputsLay))
                     setCancelable(false)
+                    create()
                     show()
                 }
-                /* sample person
-                val person = PersonData(
-                    "Frank Helen", "male", 47, 35.81F, "07456236771", null, "kiamutugu", null
-                )    SaveData().newEntry("personData", person, null) */
+
             } else {
                 ActivityCompat.requestPermissions(this, arrayOf(permissions[3]), 5)
                 toast("Please grant the requested permissions")
@@ -133,7 +224,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         }
     }
 
-    private fun loadData(refreshing: Boolean): MutableLiveData<Boolean> {
+    private fun loadData(onRefresh: Boolean): MutableLiveData<Boolean> {
         val complete: MutableLiveData<Boolean> = MutableLiveData(false)
 
         fun getData() {
@@ -170,7 +261,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
             }
         }
 
-        if (refreshing) {
+        if (onRefresh) {
             showLoadingView(false)
             getData()
 
@@ -206,14 +297,15 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
     override fun onPersonClick(position: Int, id: Int?) {
         super.onPersonClick(position, id)
+        val name = peopleList[position].name
         when (id) {
             R.id.deleteIcon -> {
-                val msg = "delete ${peopleList[position].name} not ready"
+                val msg = "delete $name is not ready"
                 customToast(this, R.drawable.ic_delete_forever, msg)
                 removeAt(position)
             }
             R.id.callIcon -> {
-                val msg = "proceed to call ${peopleList[position].name}"
+                val msg = "proceed to call $name"
                 customToast(this, R.drawable.ic_call, msg)
                 makeCall(peopleList[position].phone)
             }
@@ -230,7 +322,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
     }
 
     private fun removeAt(position: Int) {
-
+        position + 0
 /* val userUID = mUser?.uid as String
  val oldList = peopleList
  val convertedList = oldList as ArrayList<PersonData>
@@ -245,7 +337,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         personDataAdapter.notifyDataSetChanged()
     }
 
-    var goBack = false
+    private var goBack = false
 
     @Suppress("DEPRECATION")
     override fun onBackPressed() {

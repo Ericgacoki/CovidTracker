@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
+  -->
+
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
@@ -18,4 +22,5 @@
     <color name="colorBtnCancelEnabled">#FF9C00</color>
     <color name="colorBtnSaveEnabled">@color/colorPurple</color>
     <color name="colorBtnClicked">#F28E8383</color>
+    <color name="colorHint">#686868</color>
 </resources>

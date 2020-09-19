@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
+  -->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:theme="@style/ThemeNoActionBar"
+    android:theme="@style/ThemeMaterialComponents"
     tools:context=".auth.SignIn">
 
     <ImageView
@@ -65,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginVertical="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,8 +85,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLength="30"
                     android:maxLines="1"
-                    android:textSize="16sp"
-                    tools:text="gacokieric@gmail.com" />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="15dp"
                 app:counterMaxLength="15"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:layout_constraintEnd_toEndOf="@id/emailInputLay"
                 app:layout_constraintStart_toStartOf="@id/emailInputLay"
                 app:layout_constraintTop_toBottomOf="@id/emailInputLay">
@@ -112,7 +117,7 @@
             <Button
                 android:id="@+id/btnSignIn"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="15dp"
                 android:background="@drawable/round_corner"
                 android:backgroundTint="@color/colorPurple"
@@ -130,7 +135,7 @@
 
             <com.ldoublem.loadingviewlib.view.LVCircularRing
                 android:id="@+id/loadingView"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="0dp"
                 android:layout_margin="3dp"
                 android:elevation="10dp"
@@ -176,7 +181,7 @@
     <Button
         android:id="@+id/btnForgotDetails"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/normal_btn_selector"
         android:paddingHorizontal="10dp"
         android:text="@string/forgot_details"
@@ -192,7 +197,7 @@
     <Button
         android:id="@+id/btnReportIssue"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/normal_btn_selector"
         android:paddingHorizontal="10dp"
         android:text="@string/report_issue"

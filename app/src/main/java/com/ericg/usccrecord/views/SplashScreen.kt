@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020. This software is owned by @Eric_gacoki
+ */
+
 package com.ericg.usccrecord.views
 
 import android.os.Bundle
@@ -8,9 +12,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.ericg.usccrecord.R
 import com.ericg.usccrecord.extensions.Constants.AUTO_SIGN_IN
 import com.ericg.usccrecord.extensions.Constants.SHOW_ON_BOARD
-import com.ericg.usccrecord.R
 import kotlinx.android.synthetic.main.fragment_splash.view.*
 
 class SplashScreen : Fragment() {
@@ -65,12 +69,12 @@ class SplashScreen : Fragment() {
     }
 
     private fun animateViews() {
-      /*  randomSplashText.startAnimation(
-            AnimationUtils.loadAnimation(activity?.applicationContext, R.anim.fade_out_from_bottom)
-        )
-        randomSplashText.startAnimation(
-            AnimationUtils.loadAnimation(activity?.applicationContext, R.anim.fade_in_from_top)
-        )*/
+        /*  randomSplashText.startAnimation(
+              AnimationUtils.loadAnimation(activity?.applicationContext, R.anim.fade_out_from_bottom)
+          )
+          randomSplashText.startAnimation(
+              AnimationUtils.loadAnimation(activity?.applicationContext, R.anim.fade_in_from_top)
+          )*/
     }
 
     @Suppress("DEPRECATION")
