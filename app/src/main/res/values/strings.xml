@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
+  -->
+
 <resources>
     <string name="app_name">USCC Test Record</string>
     <string name="optimum_speed">OPTIMUM SPEED IN ONE CLICK</string>
@@ -27,4 +31,11 @@
     <string name="temp">Temp</string>
     <string name="location">Location</string>
     <string name="age">Age</string>
+    <string name="print_all">Print all</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="see_analysis">See Analysis</string>
+    <string name="about_this_app">About this app</string>
+    <string name="rate">Rate</string>
+    <string name="about_app_developer">About app developer</string>
 </resources>

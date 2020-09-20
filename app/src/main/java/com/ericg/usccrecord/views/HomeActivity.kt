@@ -8,12 +8,15 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -48,15 +51,13 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.CALL_PHONE
     )
-    private lateinit var sheetDialog: BottomSheetDialog
-    private lateinit var sheetView: View
     private lateinit var name: String
     private lateinit var phone: String
-    private var notEmpty: Boolean by Delegates.notNull()
-    private lateinit var inputs: Array<TextInputEditText>
+
     private lateinit var gender: String
     private lateinit var locationName: String
-    private lateinit var personData: PersonData
+    private lateinit var inputs: Array<TextInputEditText>
+    private var notEmpty: Boolean by Delegates.notNull()
 
     private val genders: Array<String> = arrayOf("Male", "Female")
     private val locations: Array<String> = arrayOf(
@@ -67,9 +68,13 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
     private var peopleList: List<PersonData> = ArrayList()
     private var personDataAdapter = PersonDataAdapter(this, peopleList, this)
 
+    private lateinit var toggle: ActionBarDrawerToggle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         personDataRecyclerview.adapter = personDataAdapter
 
         requestAppPermissions() /* if not permitted */
@@ -81,22 +86,45 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                 done -> homeLoadingLay.visibility = INVISIBLE
             }
         })
+
+        /* create side drawer */
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+    }
+
+    /* create menu*/
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.home_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.print -> {
+                customToast(this, R.drawable.ic_print_disabled, "printing is not ready")
+            }
+        }
+        return true
     }
 
     @SuppressLint("InflateParams")
     private fun setClickListeners() {
-        homeLoadingLay.setOnClickListener { }
+        homeLoadingLay.setOnClickListener {/*prevent clicks on views behind it*/ }
 
         btnAddPerson.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
-                    this, permissions[3]
+                    this, android.Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                sheetDialog = BottomSheetDialog(this)
-                sheetView =
-                    layoutInflater.inflate(
-                        R.layout.create_person_inputs, findViewById(R.id.createPersonInputsLay)
-                    )
+                val sheetDialog = BottomSheetDialog(this)
+                val sheetView = layoutInflater.inflate(
+                    R.layout.create_person_inputs, findViewById(R.id.createPersonInputsLay)
+                )
 
                 sheetView.apply {
                     inputs = arrayOf(
@@ -151,7 +179,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                             val age = personAge.text.toString().toInt()
                             val temp = personTemp.text.toString().toFloat()
 
-                            personData =
+                            val personData =
                                 PersonData(name, gender, age, temp, phone, null, locationName, null)
                             SaveData().newEntry("personData", personData, null)
                                 .observe(this@HomeActivity, { success ->
@@ -162,7 +190,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                                         })
                                     }
                                 })
-// todo remove the following 2 lines
+                            // todo remove the following 2 lines
                             sheetDialog.dismiss()
                             loadData(true)
                         } else {
@@ -172,8 +200,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                                 }
                             }
                         }
-
-
                     }
                 }
 
@@ -186,7 +212,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
             } else {
                 ActivityCompat.requestPermissions(this, arrayOf(permissions[3]), 5)
-                toast("Please grant the requested permissions")
             }
         }
     }

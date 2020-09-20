@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ericg.usccrecord">
@@ -44,7 +48,6 @@
         <activity
             android:name=".views.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-
+            />
     </application>
 </manifest>

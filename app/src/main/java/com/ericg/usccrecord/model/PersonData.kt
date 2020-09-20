@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020. This software is owned by @Eric_gacoki
+ */
+
 package com.ericg.usccrecord.model
 
 import com.google.firebase.firestore.FieldValue
@@ -19,7 +23,7 @@ data class PersonData(
     var locationCode: String?
 ) {
     init {
-        date = FieldValue.serverTimestamp()
+        date = FieldValue.serverTimestamp().toString()
         locationCode = when (locationName.toString().toLowerCase(Locale.ROOT)) {
             // todo pass the villages into a spinner fill the appropriate location codes
             /* longitude and latitude codes */
