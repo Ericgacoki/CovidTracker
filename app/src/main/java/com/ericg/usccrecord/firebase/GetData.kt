@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020. This software is owned by @Eric_gacoki
+ */
+
 package com.ericg.usccrecord.firebase
 
 import com.ericg.usccrecord.firebase.FirebaseUtils.mUser
@@ -15,11 +19,11 @@ class GetData {
         return if (type == "personData") {
             // todo set root collection to USCCMembers
             FirebaseUtils.userDatabase?.collection("USCCMember1/${userUID}/personData")
-                ?.orderBy("date", Query.Direction.DESCENDING)
+                ?.orderBy("timeStamp", Query.Direction.DESCENDING)
                 ?.get()
         } else {
             FirebaseUtils.userDatabase?.collection("USCCMember1/${userUID}/cumulativeData")
-                ?.orderBy("date", Query.Direction.DESCENDING)
+                ?.orderBy("timeStamp", Query.Direction.DESCENDING)
                 ?.get()
         }
     }

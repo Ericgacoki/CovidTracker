@@ -46,6 +46,7 @@
             android:theme="@style/ThemeNoActionBar" />
 
         <activity
+            android:theme="@style/AppTheme2"
             android:name=".views.HomeActivity"
             android:screenOrientation="portrait"
             />

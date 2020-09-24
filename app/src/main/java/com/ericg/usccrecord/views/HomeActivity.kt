@@ -6,6 +6,7 @@ package com.ericg.usccrecord.views
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
@@ -16,6 +17,7 @@ import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -41,6 +43,9 @@ import kotlin.properties.Delegates
  * @author eric
  * @date 9/14/20
  */
+
+@Suppress("SpellCheckingInspection")
+@RequiresApi(Build.VERSION_CODES.O)
 class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener {
 
     private val permissions = arrayOf(
@@ -61,8 +66,8 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
     private val genders: Array<String> = arrayOf("Male", "Female")
     private val locations: Array<String> = arrayOf(
-        "Githure", "Gituba", "Ngerwe", "Ngariama", "Nyangeni",
-        "Gitemani", "Gaciongo", "Kiriko", "Karinga", "Kiamugumo", "Other"
+        "Githure", "Gituba", "Kiamutugu", "Ngariama", "Gitemani", "Kiamugumo",
+        "kajuu", "Nyangeni", "Kiriko", "Ngerwe", "Gaciongo", "Karinga", "Other"
     )
 
     private var peopleList: List<PersonData> = ArrayList()
@@ -73,7 +78,16 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setLogo(
+                ContextCompat.getDrawable(
+                    this@HomeActivity,
+                    R.drawable.common_google_signin_btn_icon_dark_normal
+                )
+            )
+            title = " USCC [Beta]"
+        }
 
         personDataRecyclerview.adapter = personDataAdapter
 
@@ -92,10 +106,27 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        homeNavView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.seeAnalysis -> {
+                    toast("Clicked analysis")
+                }
+                R.id.aboutApp -> {
+                    toast("clicked about app")
+                }
+                R.id.rateApp -> {
+                    toast("Clicked rate")
+                }
+                R.id.aboutDev -> {
+                    toast("clicked about dev")
+                }
+            }
+            true
+        }
+
     }
 
     /* create menu*/
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.home_menu, menu)
@@ -103,13 +134,18 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        super.onOptionsItemSelected(item)
-        when (item.itemId) {
+        /*options menu */
+        /*when (item.itemId) {
             R.id.print -> {
-                customToast(this, R.drawable.ic_print_disabled, "printing is not ready")
+                customToast(this, R.drawable.ic_print_disabled, "printing is disabled")
             }
+        }*/
+
+        /* drawer */
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     @SuppressLint("InflateParams")
@@ -180,7 +216,17 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                             val temp = personTemp.text.toString().toFloat()
 
                             val personData =
-                                PersonData(name, gender, age, temp, phone, null, locationName, null)
+                                PersonData(
+                                    name,
+                                    gender,
+                                    age,
+                                    temp,
+                                    phone,
+                                    locationName,
+                                    null,
+                                    null,
+                                    null
+                                )
                             SaveData().newEntry("personData", personData, null)
                                 .observe(this@HomeActivity, { success ->
                                     if (success) {

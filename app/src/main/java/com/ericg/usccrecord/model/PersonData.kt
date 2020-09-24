@@ -4,7 +4,11 @@
 
 package com.ericg.usccrecord.model
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.google.firebase.firestore.FieldValue
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 /**
@@ -12,18 +16,22 @@ import java.util.*
  * @date 9/15/20
  */
 
+@RequiresApi(Build.VERSION_CODES.O)
 data class PersonData(
     val name: String,
     val gender: String,
     val age: Int,
     val temp: Float,
     val phone: String,
-    var date: Any?,
     var locationName: String?,
+    var date: String?,
+    var timeStamp: FieldValue?,
     var locationCode: String?
 ) {
     init {
-        date = FieldValue.serverTimestamp().toString()
+        date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        //format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
+        timeStamp = FieldValue.serverTimestamp()
         locationCode = when (locationName.toString().toLowerCase(Locale.ROOT)) {
             // todo pass the villages into a spinner fill the appropriate location codes
             /* longitude and latitude codes */
@@ -47,5 +55,5 @@ data class PersonData(
     }
 
     /* for fireStore data objects */
-    constructor() : this("", "", 0, 0F, "", null, null, null)
+    constructor() : this("", "", 0, 0F, "", null, null, null, null)
 }

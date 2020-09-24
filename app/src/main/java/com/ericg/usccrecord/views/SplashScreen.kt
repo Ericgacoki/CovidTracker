@@ -24,6 +24,7 @@ class SplashScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+     //   userDatabase?.clearPersistence()
 
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
 

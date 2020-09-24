@@ -5,11 +5,13 @@
 package com.ericg.usccrecord.adapters
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ericg.usccrecord.R
@@ -36,6 +38,7 @@ class PersonDataAdapter(
                 .inflate(R.layout.raw_item_person_data, parent, false)
         )
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
 
         val currentPerson = peopleDataList[position]
@@ -86,20 +89,22 @@ class PersonDataAdapter(
             btnMap.setOnClickListener(this)
         }
 
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(
             name: String,
             gender: String,
             age: Int,
             temp: Float,
             phone: String,
-            date: Any?
+            date: String?
+
         ) {
             this.personName.text = name
             this.gender.text = gender
             this.age.text = "$age Yrs"
             this.tempIndicatorText.text = "$temp *C"
             this.phone.text = phone
-            this.date.text = date.toString()
+            this.date.text = date
 
             /* set temp indicator */
 
@@ -112,7 +117,6 @@ class PersonDataAdapter(
                     ContextCompat.getDrawable(it, R.drawable.ic_danger_dot)
                 })
             }
-
             /* set profile pic */
 
             if (gender.toLowerCase(Locale.ROOT) == "male") {
@@ -127,9 +131,9 @@ class PersonDataAdapter(
         }
 
         override fun onClick(view: View?) {
-            // if (adapterPosition != noPosition)
-
-            clickListener.onPersonClick(adapterPosition, view?.id)
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                clickListener.onPersonClick(adapterPosition, view?.id)
+            }
         }
     }
 
