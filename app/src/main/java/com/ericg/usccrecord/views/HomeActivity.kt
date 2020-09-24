@@ -83,6 +83,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
             setLogo(
                 ContextCompat.getDrawable(
                     this@HomeActivity,
+                    // todo use app logo
                     R.drawable.common_google_signin_btn_icon_dark_normal
                 )
             )
