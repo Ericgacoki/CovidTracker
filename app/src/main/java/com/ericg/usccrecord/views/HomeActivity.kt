@@ -35,6 +35,7 @@ import com.ericg.usccrecord.firebase.SaveData
 import com.ericg.usccrecord.model.PersonData
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.firestore.FieldValue
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.create_person_inputs.view.*
 import kotlin.properties.Delegates
@@ -107,6 +108,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        // homeNavView.itemIconTintList = null
         homeNavView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.seeAnalysis -> {
@@ -124,7 +126,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
             }
             true
         }
-
     }
 
     /* create menu*/
@@ -136,11 +137,11 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         /*options menu */
-        /*when (item.itemId) {
+        when (item.itemId) {
             R.id.print -> {
                 customToast(this, R.drawable.ic_print_disabled, "printing is disabled")
             }
-        }*/
+        }
 
         /* drawer */
         if (toggle.onOptionsItemSelected(item)) {
@@ -151,114 +152,107 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
     @SuppressLint("InflateParams")
     private fun setClickListeners() {
-        homeLoadingLay.setOnClickListener {/*prevent clicks on views behind it*/ }
+        homeLoadingLay.setOnClickListener { /*prevent clicks on views behind it*/ }
 
         btnAddPerson.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    this, android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                val sheetDialog = BottomSheetDialog(this)
-                val sheetView = layoutInflater.inflate(
-                    R.layout.create_person_inputs, findViewById(R.id.createPersonInputsLay)
-                )
 
-                sheetView.apply {
-                    inputs = arrayOf(
-                        personName, personPhone, personTemp, personAge
-                    )
-                    this.genderSpinner.apply {
-                        adapter = ArrayAdapter(
-                            this@HomeActivity,
-                            R.layout.support_simple_spinner_dropdown_item, genders
-                        )
+            val btmSheetView = layoutInflater.inflate(
+                R.layout.create_person_inputs, findViewById(R.id.createPersonInputsLay)
+            )
 
-                        onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(
-                                adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
-                            ) {
-                                gender = adapterView?.getItemAtPosition(position).toString()
-                            }
-
-                            override fun onNothingSelected(p0: AdapterView<*>?) {}
-                        }
-                    }
-
-                    this.locationSpinner.apply {
-                        adapter = ArrayAdapter(
-                            this@HomeActivity,
-                            R.layout.support_simple_spinner_dropdown_item, locations
-                        )
-                        onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(
-                                adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
-                            ) {
-                                locationName = adapterView?.getItemAtPosition(position).toString()
-                            }
-
-                            override fun onNothingSelected(p0: AdapterView<*>?) {}
-                        }
-                    }
-
-                    btnCancelEntry.setOnClickListener { sheetDialog.dismiss() }
-
-                    btnSaveNewEntry.setOnClickListener {
-
-                        name = personName.text.toString().trim()
-                        phone = personPhone.text.toString().trim()
-
-                        notEmpty = personName.text.toString().trim().isNotEmpty() &&
-                                personPhone.text.toString().trim().isNotEmpty() &&
-                                personTemp.text.toString().trim().isNotEmpty() &&
-                                personAge.text.toString().trim().isNotEmpty()
-
-                        if (notEmpty) {
-                            val age = personAge.text.toString().toInt()
-                            val temp = personTemp.text.toString().toFloat()
-
-                            val personData =
-                                PersonData(
-                                    name,
-                                    gender,
-                                    age,
-                                    temp,
-                                    phone,
-                                    locationName,
-                                    null,
-                                    null,
-                                    null
-                                )
-                            SaveData().newEntry("personData", personData, null)
-                                .observe(this@HomeActivity, { success ->
-                                    if (success) {
-                                        sheetDialog.dismiss()
-                                        loadData(false).observe(this@HomeActivity, { complete ->
-                                            if (complete) showLoadingView(false)
-                                        })
-                                    }
-                                })
-                            // todo remove the following 2 lines
-                            sheetDialog.dismiss()
-                            loadData(true)
-                        } else {
-                            inputs.forEach {
-                                if (it.text.toString().trim().isEmpty()) {
-                                    it.error = "${it.hint} is required"
-                                }
-                            }
-                        }
-                    }
-                }
-
-                sheetDialog.apply {
-                    setContentView(sheetView, findViewById(R.id.createPersonInputsLay))
+            val sheetDialog = BottomSheetDialog(this)
+                .apply {
+                    setContentView(btmSheetView, findViewById(R.id.createPersonInputsLay))
                     setCancelable(false)
                     create()
                     show()
                 }
 
-            } else {
-                ActivityCompat.requestPermissions(this, arrayOf(permissions[3]), 5)
+            btmSheetView.apply {
+                inputs = arrayOf(
+                    personName, personPhone, personTemp, personAge
+                )
+                this.genderSpinner.apply {
+                    adapter = ArrayAdapter(
+                        this@HomeActivity,
+                        R.layout.support_simple_spinner_dropdown_item, genders
+                    )
+
+                    onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
+                        ) {
+                            gender = adapterView?.getItemAtPosition(position).toString()
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {}
+                    }
+                }
+
+                this.locationSpinner.apply {
+                    adapter = ArrayAdapter(
+                        this@HomeActivity,
+                        R.layout.support_simple_spinner_dropdown_item, locations
+                    )
+                    onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            adapterView: AdapterView<*>?, view: View?, position: Int, id: Long
+                        ) {
+                            locationName = adapterView?.getItemAtPosition(position).toString()
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {}
+                    }
+                }
+
+                btnCancelEntry.setOnClickListener { sheetDialog.dismiss() }
+
+                btnSaveNewEntry.setOnClickListener {
+
+                    name = personName.text.toString().trim()
+                    phone = personPhone.text.toString().trim()
+
+                    notEmpty = personName.text.toString().trim().isNotEmpty() &&
+                            personPhone.text.toString().trim().isNotEmpty() &&
+                            personTemp.text.toString().trim().isNotEmpty() &&
+                            personAge.text.toString().trim().isNotEmpty()
+
+                    if (notEmpty) {
+                        val age = personAge.text.toString().toInt()
+                        val temp = personTemp.text.toString().toFloat()
+
+                        val personData =
+                            PersonData(
+                                name,
+                                gender,
+                                age,
+                                temp,
+                                phone,
+                                locationName,
+                                FieldValue.serverTimestamp(),
+                                null,
+                                null
+                            )
+                        SaveData().newEntry("personData", personData, null)
+                            .observe(this@HomeActivity, { success ->
+                                if (success) {
+                                    sheetDialog.dismiss()
+                                    loadData(false).observe(this@HomeActivity, { complete ->
+                                        if (complete) showLoadingView(false)
+                                    })
+                                }
+                            })
+                        // todo remove the following 2 lines
+                        sheetDialog.dismiss()
+                        loadData(true)
+                    } else {
+                        inputs.forEach {
+                            if (it.text.toString().trim().isEmpty()) {
+                                it.error = "${it.hint} is required"
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -378,11 +372,23 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
             }
             R.id.callIcon -> {
                 val msg = "proceed to call $name"
-                customToast(this, R.drawable.ic_call, msg)
-                makeCall(peopleList[position].phone)
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.CALL_PHONE
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    customToast(this, R.drawable.ic_call, msg)
+                    makeCall(peopleList[position].phone)
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.CALL_PHONE),
+                        0
+                    )
+                }
             }
             R.id.mapIcon -> {
-                val msg = "view ${peopleList[position].locationName} map"
+                val msg = "view ${peopleList[position].locationName}'s map"
                 customToast(this, R.drawable.ic_location, msg)
                 viewMap(
                     "${peopleList[position].locationCode}",

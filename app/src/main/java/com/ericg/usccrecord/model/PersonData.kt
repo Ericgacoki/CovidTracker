@@ -6,9 +6,9 @@ package com.ericg.usccrecord.model
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.google.firebase.firestore.FieldValue
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 /**
@@ -24,14 +24,12 @@ data class PersonData(
     val temp: Float,
     val phone: String,
     var locationName: String?,
+    var timeStamp: Any?,
     var date: String?,
-    var timeStamp: FieldValue?,
     var locationCode: String?
 ) {
     init {
-        date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-        //format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
-        timeStamp = FieldValue.serverTimestamp()
+        date = LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
         locationCode = when (locationName.toString().toLowerCase(Locale.ROOT)) {
             // todo pass the villages into a spinner fill the appropriate location codes
             /* longitude and latitude codes */
