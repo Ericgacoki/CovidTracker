@@ -81,13 +81,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         setContentView(R.layout.activity_home)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setLogo(
-                ContextCompat.getDrawable(
-                    this@HomeActivity,
-                    // todo use app logo
-                    R.drawable.common_google_signin_btn_icon_dark_normal
-                )
-            )
             title = " USCC [Beta]"
         }
 
@@ -108,9 +101,8 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // homeNavView.itemIconTintList = null
-        homeNavView.setNavigationItemSelectedListener {
-            when (it.itemId) {
+        homeNavView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.seeAnalysis -> {
                     toast("Clicked analysis")
                 }
@@ -136,6 +128,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         /*options menu */
         when (item.itemId) {
             R.id.print -> {
