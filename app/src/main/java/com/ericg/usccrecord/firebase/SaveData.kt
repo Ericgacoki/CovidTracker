@@ -13,37 +13,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-/**
- * @author eric
- * @date 9/15/20
- */
-
 class SaveData {
     fun newEntry(
-        type: String, personData: PersonData?, cumulativeData: CumulativeData?
+        docId: String, type: String, personData: PersonData?, cumulativeData: CumulativeData?
     ): MutableLiveData<Boolean> {
-        val success = MutableLiveData<Boolean>()
+        val success = MutableLiveData(false)
         val userUID = mUser?.uid as String
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.Main) {
 
             /* first create a real document (by adding a dummy field)*/
 
-            val docUserUID = userDatabase?.document("USCCMember1/${userUID}")
+            val docUserUID = userDatabase?.document("USCCMembers/${userUID}")
             docUserUID?.set(hashMapOf("this doc" to "is real"))
 
             if (type == "personData") {
                 if (personData != null) {
-                    docUserUID
-                        ?.collection("personData")
-                        ?.add(personData)?.addOnCompleteListener { save ->
+
+                    docUserUID?.collection("personData")?.document(docId)
+                        ?.set(personData)?.addOnCompleteListener { save ->
                             success.value = save.isSuccessful
                         }
                 }
             } else {
                 if (cumulativeData != null) {
-                    docUserUID
-                        ?.collection("cumulativeData")
-                        ?.add(cumulativeData)?.addOnCompleteListener { save ->
+                    docUserUID?.collection("cumulativeData")?.document(docId)
+                        ?.set(cumulativeData)?.addOnCompleteListener { save ->
                             success.value = save.isSuccessful
                         }
                 }

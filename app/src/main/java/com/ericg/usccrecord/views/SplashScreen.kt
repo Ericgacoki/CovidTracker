@@ -23,18 +23,18 @@ class SplashScreen : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-     //  userDatabase?.clearPersistence()
+      //   userDatabase?.clearPersistence()
 
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
 
+        fun getDrawable(drawable: Int) = ContextCompat.getDrawable(this.requireContext(), drawable)
         val images = arrayOf(
-            ContextCompat.getDrawable(this.requireContext(), R.drawable.doc_male),
-            ContextCompat.getDrawable(this.requireContext(), R.drawable.doc_female),
-            ContextCompat.getDrawable(this.requireContext(), R.drawable.social_distance2),
-            ContextCompat.getDrawable(this.requireContext(), R.drawable.social_distance3),
-            ContextCompat.getDrawable(this.requireContext(), R.drawable.hand_wash1),
-            ContextCompat.getDrawable(this.requireContext(), R.drawable.trace1)
+            getDrawable(R.drawable.doc_male),
+            getDrawable(R.drawable.doc_female),
+            getDrawable(R.drawable.social_distance2),
+            getDrawable(R.drawable.social_distance3),
+            getDrawable(R.drawable.hand_wash1),
+            getDrawable(R.drawable.trace1)
         )
         val randomIndex = (0..5).random()
         val randomImage = images[randomIndex]
@@ -55,7 +55,7 @@ class SplashScreen : Fragment() {
                 "Always put on your mask when in public!"
             }
             4 -> {
-                "Sanitize, wash your hands regularly and keep safe!"
+                "Sanitize, wash your hands regularly and stay safe!"
             }
             // 5
             else -> {

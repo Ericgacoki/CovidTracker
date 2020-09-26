@@ -36,7 +36,8 @@
     <string name="close">Close</string>
     <string name="see_analysis">See Analysis</string>
     <string name="about_this_app">About this app</string>
-    <string name="rate">Rate</string>
     <string name="about_app_developer">About app developer</string>
     <string name="united_saints_christian_church">United Saints Christian \n Church</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate">Rate</string>
 </resources>

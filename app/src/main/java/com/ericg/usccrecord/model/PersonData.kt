@@ -18,6 +18,7 @@ import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 data class PersonData(
+    val docId: String?,
     val name: String,
     val gender: String,
     val age: Int,
@@ -52,6 +53,6 @@ data class PersonData(
         }
     }
 
-    /* for fireStore data objects */
-    constructor() : this("", "", 0, 0F, "", null, null, null, null)
+    /**@important for fireStore data objects */
+    constructor() : this("", "", "", 0, 0F, "", null, null, null, null)
 }
