@@ -22,9 +22,9 @@
         android:allowBackup="true"
         android:appCategory="productivity"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_uscc_app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_uscc_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="o">
@@ -48,7 +48,10 @@
         <activity
             android:theme="@style/AppTheme"
             android:name=".views.HomeActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 </manifest>

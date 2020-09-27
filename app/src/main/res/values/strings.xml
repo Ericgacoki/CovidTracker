@@ -25,7 +25,7 @@
     <string name="phone">Phone</string>
     <string name="date">Date</string>
     <string name="no_data_text">No data yet. Click \'+\' button below to add</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="hint_name">Name</string>
     <string name="temp">Temp</string>
@@ -40,4 +40,10 @@
     <string name="united_saints_christian_church">United Saints Christian \n Church</string>
     <string name="feedback">Feedback</string>
     <string name="rate">Rate</string>
+    <string name="x">X</string>
+    <string name="developer_name">Eric gacoki</string>
+    <string name="developer_role">Android software developer</string>
+    <string name="lets_connect">let\'s connect</string>
+    <string name="compatibility">Compatibility : Android API 23+</string>
+    <string name="app_version">Version : 1.1.5</string>
 </resources>

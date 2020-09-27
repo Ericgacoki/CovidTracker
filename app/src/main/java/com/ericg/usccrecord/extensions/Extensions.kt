@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020. This software is owned by @Eric_gacoki
+ */
+
 package com.ericg.usccrecord.extensions
 
 import android.app.Activity
@@ -86,6 +90,30 @@ object Extensions {
         val callIntent = Intent(Intent.ACTION_CALL, Uri.parse("tel:${phone}"))
         callIntent.resolveActivity(packageManager)?.let {
             startActivity(Intent.createChooser(callIntent, "Select calling app"))
+        }
+    }
+
+    private fun Activity.browse(link: String) {
+        val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link)) as Intent?
+        browseIntent?.let {
+            startActivity(it)
+        }
+    }
+
+    fun Activity.connectOn(platform: String) {
+        when (platform) {
+            "twitter" -> {
+                browse("https://twitter.com")
+            }
+            "linkedIn" -> {
+                browse("https://linkedIn.com/Ericgacoki")
+            }
+            "gitHub" -> {
+                browse("https://github.com/Ericgacoki")
+            }
+            else -> {
+                toast("can't perform that action")
+            }
         }
     }
 }

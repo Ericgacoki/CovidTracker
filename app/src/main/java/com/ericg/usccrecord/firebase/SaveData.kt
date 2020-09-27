@@ -7,7 +7,6 @@ package com.ericg.usccrecord.firebase
 import androidx.lifecycle.MutableLiveData
 import com.ericg.usccrecord.firebase.FirebaseUtils.mUser
 import com.ericg.usccrecord.firebase.FirebaseUtils.userDatabase
-import com.ericg.usccrecord.model.CumulativeData
 import com.ericg.usccrecord.model.PersonData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -15,32 +14,20 @@ import kotlinx.coroutines.launch
 
 class SaveData {
     fun newEntry(
-        docId: String, type: String, personData: PersonData?, cumulativeData: CumulativeData?
+        docId: String, personData: PersonData
     ): MutableLiveData<Boolean> {
         val success = MutableLiveData(false)
         val userUID = mUser?.uid as String
-        GlobalScope.launch(Dispatchers.Main) {
-
+        GlobalScope.launch(Dispatchers.IO) {
             /* first create a real document (by adding a dummy field)*/
 
-            val docUserUID = userDatabase?.document("USCCMembers/${userUID}")
-            docUserUID?.set(hashMapOf("this doc" to "is real"))
+            userDatabase?.document("USCCMembers/${userUID}")?.apply {
+                set(hashMapOf("this doc" to "is real"))
 
-            if (type == "personData") {
-                if (personData != null) {
-
-                    docUserUID?.collection("personData")?.document(docId)
-                        ?.set(personData)?.addOnCompleteListener { save ->
-                            success.value = save.isSuccessful
-                        }
-                }
-            } else {
-                if (cumulativeData != null) {
-                    docUserUID?.collection("cumulativeData")?.document(docId)
-                        ?.set(cumulativeData)?.addOnCompleteListener { save ->
-                            success.value = save.isSuccessful
-                        }
-                }
+                collection("personData").document(docId)
+                    .set(personData).addOnCompleteListener { save ->
+                        success.value = save.isSuccessful
+                    }
             }
         }
         return success

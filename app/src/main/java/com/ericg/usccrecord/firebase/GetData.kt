@@ -10,16 +10,10 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
 class GetData {
-    fun get(type: String): Task<QuerySnapshot>? {
+    fun get(): Task<QuerySnapshot>? {
         val userUID = mUser?.uid as String
-        return if (type == "personData") {
-            FirebaseUtils.userDatabase?.collection("USCCMembers/${userUID}/personData")
-                ?.orderBy("timeStamp", Query.Direction.DESCENDING)
-                ?.get()
-        } else {
-            FirebaseUtils.userDatabase?.collection("USCCMembers/${userUID}/cumulativeData")
-                ?.orderBy("timeStamp", Query.Direction.DESCENDING)
-                ?.get()
-        }
+        return FirebaseUtils.userDatabase?.collection("USCCMembers/${userUID}/personData")
+            ?.orderBy("timeStamp", Query.Direction.DESCENDING)
+            ?.get()
     }
 }

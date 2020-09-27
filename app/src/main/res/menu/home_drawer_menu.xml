@@ -2,22 +2,26 @@
   ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
   -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/drawerLayMenuGroup1"
+        android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/seeAnalysis"
-        android:icon="@drawable/ic_analysis"
-        android:title="@string/see_analysis" />
-    <item
-        android:id="@+id/aboutApp"
-        android:icon="@drawable/ic_about"
-        android:title="@string/about_this_app" />
+        <item
+            android:id="@+id/seeAnalysis"
+            android:icon="@drawable/ic_analysis"
+            android:title="@string/see_analysis" />
+        <item
+            android:id="@+id/aboutApp"
+            android:icon="@drawable/ic_about"
+            android:title="@string/about_this_app" />
 
-    <item
-        android:id="@+id/rateApp"
-        android:icon="@drawable/ic_rate"
-        android:title="@string/rate" />
-    <item
-        android:id="@+id/aboutDev"
-        android:icon="@drawable/ic_dev"
-        android:title="@string/about_app_developer" />
+        <item
+            android:id="@+id/rateApp"
+            android:icon="@drawable/ic_rate"
+            android:title="@string/rate" />
+        <item
+            android:id="@+id/aboutDev"
+            android:icon="@drawable/ic_dev"
+            android:title="@string/about_app_developer" />
+    </group>
 </menu>

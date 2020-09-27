@@ -26,8 +26,9 @@
             android:progressTint="@color/colorOrange"
             android:rating="3"
             android:stepSize="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -58,7 +59,7 @@
 
         <Button
             android:id="@+id/btnRate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
             android:background="@drawable/btn_rate"

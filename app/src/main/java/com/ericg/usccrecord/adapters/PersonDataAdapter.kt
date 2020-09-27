@@ -138,6 +138,7 @@ class PersonDataAdapter(
     }
 
     interface PersonClickListener {
+
         fun onPersonClick(position: Int, id: Int?) {
         }
     }

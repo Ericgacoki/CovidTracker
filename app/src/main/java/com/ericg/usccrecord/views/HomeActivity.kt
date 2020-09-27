@@ -24,10 +24,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.ericg.usccrecord.R
 import com.ericg.usccrecord.adapters.PersonDataAdapter
+import com.ericg.usccrecord.extensions.Extensions.connectOn
 import com.ericg.usccrecord.extensions.Extensions.customToast
 import com.ericg.usccrecord.extensions.Extensions.makeCall
 import com.ericg.usccrecord.extensions.Extensions.sendEmail
@@ -41,7 +43,12 @@ import com.ericg.usccrecord.model.PersonData
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FieldValue
+import kotlinx.android.synthetic.main.about_app_developer.*
+import kotlinx.android.synthetic.main.about_app_developer.view.*
+import kotlinx.android.synthetic.main.about_app_dialog.*
+import kotlinx.android.synthetic.main.about_app_dialog.view.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.analsis_dialog.*
 import kotlinx.android.synthetic.main.create_person_inputs.view.*
 import kotlinx.android.synthetic.main.rate_app_dialog.*
 import kotlinx.android.synthetic.main.rate_app_dialog.view.*
@@ -108,20 +115,29 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        handleDrawerClicks()
+    }
+
+    private fun handleDrawerClicks() {
+
         homeNavView.setNavigationItemSelectedListener { item ->
+
             when (item.itemId) {
-                // todo use a nav controller
                 R.id.seeAnalysis -> {
-                    toast("Clicked analysis")
+                    showAnalysisDialog()
+                    drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.aboutApp -> {
-                    toast("clicked about app")
+                    showAboutAppDialog()
+                    drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.rateApp -> {
                     showRatingDialog()
+                    drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.aboutDev -> {
-                    toast("clicked about dev")
+                    showAboutDevDialog()
+                    drawerLayout.closeDrawer(GravityCompat.START)
                 }
             }
             true
@@ -239,7 +255,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                                 null,
                                 null
                             )
-                        SaveData().newEntry(docId!!, "personData", personData, null)
+                        SaveData().newEntry(docId!!, personData)
                         sheetDialog.dismiss()
                         loadData(false).observe(this@HomeActivity, { complete ->
                             if (complete) showLoadingView(false)
@@ -259,8 +275,34 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
     private fun requestAppPermissions() = ActivityCompat.requestPermissions(this, permissions, 1)
 
+    private fun showAnalysisDialog() {
+        val analysisView = layoutInflater.inflate(R.layout.analsis_dialog, analysisRootLay).apply {
+            // todo finish up this
+        }
+
+        AlertDialog.Builder(this).apply {
+            setView(analysisView)
+            create()
+            show()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showAboutAppDialog() {
+        val aboutAppView =
+            layoutInflater.inflate(R.layout.about_app_dialog, aboutAppRootLay).apply {
+                this.userID.text = "User ID : " + mUser?.uid as String
+            }
+
+        AlertDialog.Builder(this).apply {
+            setView(aboutAppView)
+            create()
+            show()
+        }
+    }
+
     private fun showRatingDialog() {
-        var ratingStars = 3F
+        var ratingStars = 3F // default rating
         var feedback: String
 
         val ratingView = layoutInflater.inflate(R.layout.rate_app_dialog, rateAppRootLay).apply {
@@ -272,8 +314,8 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                 if (ratingStars > 0.0 && etFeedback.text.toString().trim().isNotEmpty()) {
                     feedback = etFeedback.text.toString().trim()
                     sendEmail(
-                        "USCC RATING",
-                        "Rating: $ratingStars \n feedback: $feedback",
+                        "USCC TEST RECORD APP RATING",
+                        "Rating: $ratingStars over 5.0 \nFeedback: $feedback",
                         arrayOf("gacokieric@gmail.com")
                     )
                 } else if (ratingStars < 1.0) {
@@ -294,12 +336,57 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         }
     }
 
+    private fun showAboutDevDialog() {
+        val aboutDevView =
+            layoutInflater.inflate(R.layout.about_app_developer, aboutDevRootLay).apply {
+                this.btnTwitter.setOnClickListener {
+                    connectOn("twitter")
+                }
+                this.btnTwitter.setOnLongClickListener {
+                    customToast(this@HomeActivity, R.drawable.twitterlogo, "twitter")
+                    true
+                }
+
+                btnLinkedIn.setOnClickListener {
+                    connectOn("linkedIn")
+                }
+                btnLinkedIn.setOnLongClickListener {
+                    customToast(this@HomeActivity, R.drawable.linkedinicon, "linkedIn")
+                    true
+                }
+
+                btnEmail.setOnClickListener {
+                    sendEmail(
+                        "USCC Regards", "", arrayOf("gacokieric@gmail.com")
+                    )
+                }
+                btnEmail.setOnLongClickListener {
+                    customToast(this@HomeActivity, R.drawable.ic_email, "Email")
+                    true
+                }
+
+                btnGitHub.setOnClickListener {
+                    connectOn("gitHub")
+                }
+                btnGitHub.setOnLongClickListener {
+                    customToast(this@HomeActivity, R.drawable.githubicon, "More of my apps")
+                    true
+                }
+            }
+
+        AlertDialog.Builder(this).apply {
+            setView(aboutDevView)
+            create()
+            show()
+        }
+    }
+
 
     private fun onScroll() {
         personDataRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                /*  capture a bottom-to-top scroll */
+                /*  capture a bottom-to-top scroll ie a positive change in y-axis */
                 if (dy > dx) {
                     btnAddPerson.startAnimation(
                         AnimationUtils.loadAnimation(
@@ -332,7 +419,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         fun getData() {
             complete.value = false
 
-            GetData().get("personData")?.addOnCompleteListener {
+            GetData().get()?.addOnCompleteListener {
                 complete.value = true
                 if (it.isSuccessful) {
 
@@ -421,7 +508,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                     setNegativeButton("No") { _, _ ->
                         /* dismiss the dialog*/
                     }
-
                     create().show()
                 }
             }
@@ -446,6 +532,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
             R.id.mapIcon -> {
                 val msg = "view ${peopleList[position].locationName}'s map"
+
                 customToast(this, R.drawable.ic_location, msg)
                 viewMap(
                     "${peopleList[position].locationCode}",
