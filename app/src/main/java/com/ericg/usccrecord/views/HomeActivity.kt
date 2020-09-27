@@ -144,7 +144,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         }
     }
 
-    /* create menu*/
+    /* create menu */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.home_menu, menu)
