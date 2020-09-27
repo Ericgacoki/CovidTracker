@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
+  -->
+
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/abeezee</item>
+        <item>@font/asap</item>
+    </array>
+</resources>
