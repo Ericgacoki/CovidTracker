@@ -46,4 +46,7 @@
     <string name="lets_connect">let\'s connect</string>
     <string name="compatibility">Compatibility : Android API 23+</string>
     <string name="app_version">Version : 1.1.5</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="total">Total :</string>
 </resources>

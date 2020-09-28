@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -49,9 +50,12 @@ import kotlinx.android.synthetic.main.about_app_dialog.*
 import kotlinx.android.synthetic.main.about_app_dialog.view.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.analsis_dialog.*
+import kotlinx.android.synthetic.main.analsis_dialog.view.*
 import kotlinx.android.synthetic.main.create_person_inputs.view.*
 import kotlinx.android.synthetic.main.rate_app_dialog.*
 import kotlinx.android.synthetic.main.rate_app_dialog.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
 /**
@@ -85,10 +89,10 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         "kajuu", "Nyangeni", "Kiriko", "Ngerwe", "Gaciongo", "Karinga", "Other"
     )
 
-    private var peopleList: List<PersonData> = ArrayList()
-    private var personDataAdapter = PersonDataAdapter(this, peopleList, this)
+    var peopleList: List<PersonData> = ArrayList()
+    var personDataAdapter = PersonDataAdapter(this, peopleList, this)
 
-    private lateinit var toggle: ActionBarDrawerToggle
+    lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +101,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
             setDisplayHomeAsUpEnabled(true)
             title = " USCC [Beta]"
         }
-
         personDataRecyclerview.adapter = personDataAdapter
 
         requestAppPermissions() /* if not permitted */
@@ -276,11 +279,47 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
     private fun requestAppPermissions() = ActivityCompat.requestPermissions(this, permissions, 1)
 
     private fun showAnalysisDialog() {
-        val analysisView = layoutInflater.inflate(R.layout.analsis_dialog, analysisRootLay).apply {
-            // todo finish up this
+
+        var safeMales = 0
+        var malesInDanger = 0
+        val totalMales: Int
+
+        val totalFemales: Int
+        var safeFemales = 0
+        var femalesInDanger = 0
+
+        peopleList.forEach { person ->
+            if (person.gender.trim().toLowerCase(Locale.ROOT) == "male") {
+                if (person.temp <= 37.5F) {
+                    safeMales += 1
+                } else {
+                    malesInDanger += 1
+                }
+            } else {
+                if (person.temp <= 37.5F) {
+                    safeFemales += 1
+                } else {
+                    femalesInDanger += 1
+                }
+            }
         }
 
-        AlertDialog.Builder(this).apply {
+        totalMales = safeMales + malesInDanger
+        totalFemales = safeFemales + femalesInDanger
+
+        val analysisView = layoutInflater.inflate(R.layout.analsis_dialog, analysisRootLay).apply {
+
+            this.tvSafeMales.text = safeMales.toString()
+            this.tvMalesInDanger.text = malesInDanger.toString()
+            this.tvTotalMales.text = totalMales.toString()
+
+            this.tvSafeFemales.text = safeFemales.toString()
+            this.tvFemalesInDanger.text = femalesInDanger.toString()
+            this.tvTotalFemales.text = totalFemales.toString()
+
+        }
+
+        AlertDialog.Builder(this, R.style.AlertDialogTheme).apply {
             setView(analysisView)
             create()
             show()
@@ -294,7 +333,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                 this.userID.text = "User ID : " + mUser?.uid as String
             }
 
-        AlertDialog.Builder(this).apply {
+        AlertDialog.Builder(this, R.style.AlertDialogTheme).apply {
             setView(aboutAppView)
             create()
             show()
@@ -327,9 +366,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
             }
         }
 
-        AlertDialog.Builder(this).apply {
-            /*requestWindowFeature(Window.FEATURE_NO_TITLE)
-            window.decorView.setBackgroundResource(android.R.color.transparent)*/
+        AlertDialog.Builder(this, R.style.AlertDialogTheme).apply {
             setView(ratingView)
             create()
             show()
@@ -337,8 +374,9 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
     }
 
     private fun showAboutDevDialog() {
+
         val aboutDevView =
-            layoutInflater.inflate(R.layout.about_app_developer, aboutDevRootLay).apply {
+            LayoutInflater.from(this).inflate(R.layout.about_app_developer, aboutDevRootLay).apply {
                 this.btnTwitter.setOnClickListener {
                     connectOn("twitter")
                 }
