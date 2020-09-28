@@ -318,7 +318,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
             this.tvTotalFemales.text = totalFemales.toString()
 
         }
-
         AlertDialog.Builder(this, R.style.AlertDialogTheme).apply {
             setView(analysisView)
             create()
