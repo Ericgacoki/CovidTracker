@@ -122,11 +122,11 @@ As you've seen, every person's data saved appears in a card. The card contains t
 
 <b>Database structure</b>
 
-<img src="uscc_images/database_code" width="400"/>
+<img src="uscc_images/database_code,png" width="400"/>
 
 - the above code produces the structure below
 
-<img src="uscc_images/database_structure" width="400"/>
+<img src="uscc_images/database_structure,png" width="400"/>
 
 
 * To ensure that only authorized users can access the app/database, USCC has implemented [Firebase Authentication](https://firebase.google.com/docs/auth)
@@ -135,7 +135,7 @@ As you've seen, every person's data saved appears in a card. The card contains t
 
 * [Material Design](https://material.io/develop/android)
 
-  <img src="https://material.io/blog/android-stable-release-1-2" width="400"/>
+  <img src="https://material.io/blog/android-material-motion" width="400"/>
 
 * [Circle imageView](https://github.com/hdodenhof/CircleImageView)
 
