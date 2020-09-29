@@ -51,7 +51,7 @@ Upon signing in successfully, Home screen opens up with an image and a text indi
 
 This app requires several permissions for it to function properly. Just allow them all. (you can deny or allow them in app details as well)
 
-<img srcc="uscc_images/home_permission.png" width="280"/>
+<img srcc="uscc_images/home_permissions.png" width="280"/>
 
 ## c. Buttons and their functionalities
 
@@ -64,10 +64,10 @@ This app requires several permissions for it to function properly. Just allow th
   - toogle button -> used to open or close the navigation drawer.
 
 
-<img src="uscc_images/add_person.png" width="240"/>	<img src="uscc_images/add_person_filled.png" width="240"/>	
+<img src="uscc_images/add_person.png" width="280"/> 	<img src="uscc_images/add_person_filled.png" width="280"/>	
 
 
-<img src="uscc_images/added_people.png" width="240"/>	 <img src="uscc_images/refresh.png" width="280"/>
+<img src="uscc_images/added_people.png" width="280"/>	  <img src="uscc_images/refresh.png" width="280"/>
 
 
 ## d. Side Drawer
