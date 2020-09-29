@@ -57,7 +57,7 @@ This app requires several permissions for it to function properly. Just allow th
 
 * Main screen buttons
 
-  - + button -> when clicked a bottomSheet appears in which the person data should be filled. All fields <b>must not</b> be empty before saving.
+  - \+ button -> when clicked a bottomSheet appears in which the person data should be filled. All fields <b>must not</b> be empty before saving.
 
   - print icon (options menu button) - <i>intended to print the desired list of data.([currently under development]())</i>.
 
@@ -110,9 +110,9 @@ As you've seen, every person's data saved appears in a card. The card contains t
   
   - [Navigation]() - Reduces the boilerplate code that was used to handle navigation and passing of data to destinations an dvice versa
 
-* This App is written in 100% [Kotlin](https://kotlinlang.org/)
+* This App is written in 100% <b>[Kotlin](https://kotlinlang.org/)</b>
 
-* Code style is achieved through [ktlint](https://github.com/pinterest/ktlint)
+* Code style is achieved through <b>[ktlint](https://github.com/pinterest/ktlint)</b>
 
 * [Kotlin coroutines](https://developer.android.com/kotlin/coroutines) - excecute code asyncronously with lightweight concurrency design pattern that is compatible with most of jetpack libraries
 
@@ -122,30 +122,30 @@ As you've seen, every person's data saved appears in a card. The card contains t
 
 <b>Database structure</b>
 
-<img src="uscc_images/database_code,png" width="400"/>
+<img src="uscc_images/database_code.png"/>
 
 - the above code produces the structure below
 
-<img src="uscc_images/database_structure,png" width="400"/>
+<img src="uscc_images/database_structure.png"/>
 
 
 * To ensure that only authorized users can access the app/database, USCC has implemented [Firebase Authentication](https://firebase.google.com/docs/auth)
 
-### UI Design libraries
+## UI Design libraries
 
-* [Material Design](https://material.io/develop/android)
+# * [Material Design](https://material.io/develop/android)
 
-  <img src="https://material.io/blog/android-material-motion" width="400"/>
+  <img src="https://lh3.googleusercontent.com/nodWmLi_3o3Ou7wwIJwCUJ_du5ZlsA98tlnhyjtIjh2-D7tn4U8qRuBT6esKbqA2CXZmalY_wdyubBPv2gIuRsg0wKwDflYBt2W6aA=w760-h361"/>
 
-* [Circle imageView](https://github.com/hdodenhof/CircleImageView)
+# * [Circle imageView](https://github.com/hdodenhof/CircleImageView)
 
  <img src="https://camo.githubusercontent.com/e17a2a83e3e205a822d27172cb3736d4f441344d/68747470733a2f2f7261772e6769746875622e636f6d2f68646f64656e686f662f436972636c65496d616765566965772f6d61737465722f73637265656e73686f742e706e67" width="280"/>
 
-* [Loading Views](https://github.com/ldoublem/LoadingView)
+# * [Loading Views](https://github.com/ldoublem/LoadingView)
 
 <img src="https://github.com/ldoublem/LoadingView/blob/master/screen/screen.gif" width="400"/>
 
-* [Gif Image View](https://github.com/koral--/android-gif-drawable)
+# * [Gif Image View](https://github.com/koral--/android-gif-drawable)
 
 <img src="https://camo.githubusercontent.com/bc81cfc048bdde8766c8524eee2cbe9f99d472fc/68747470733a2f2f63646e2e737465656d6974696d616765732e636f6d2f44516d61634564566e456631663247445a347567613165764e33467a756a6452347a626b716d6956374e73635042732f686f72697a6f6e74616c2e706e67" 
  width="280"/>
