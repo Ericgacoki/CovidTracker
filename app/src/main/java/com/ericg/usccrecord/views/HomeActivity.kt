@@ -380,7 +380,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                     connectOn("twitter")
                 }
                 this.btnTwitter.setOnLongClickListener {
-                    customToast(this@HomeActivity, R.drawable.twitterlogo, "twitter")
+                    customToast(this@HomeActivity, R.drawable.mask_emoji, "twitter icon not ready")
                     true
                 }
 

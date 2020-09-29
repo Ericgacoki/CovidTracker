@@ -43,7 +43,7 @@ You can also ask for help or report a sign in issue by clicking the respective b
 ## a. Home
 
 Upon signing in successfully, Home screen opens up with an image and a text indicating no data has been saved yet. 
-<b>NOTE</b> <u>In case other users had saved data into the database, it'll appear in your device as well because all users are sharing a data storage path. This is crusial as it defies the physical distance between the devices in use and real time updates and data syncing takes a very short time regardless of the number of users. All what you need to do is to stay online for the magic to happen.</u> 
+<b>NOTE</b> <u>In case other users had saved data into the database, it'll appear in your device as well because all users are sharing a data storage path. This is paramount as it defies the physical distance between the devices in use and real time updates and data syncing takes a very short time regardless of the number of users. All what you need to do is to stay online for the magic to happen.</u> 
 
 <img src="uscc_images/home.png" width="280"/> 
 

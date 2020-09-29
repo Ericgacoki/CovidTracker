@@ -97,7 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:src="@drawable/twitterlogo" />
+                    android:src="@drawable/mask_emoji" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/btnLinkedIn"

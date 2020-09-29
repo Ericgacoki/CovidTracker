@@ -12,7 +12,7 @@ import com.google.firebase.firestore.QuerySnapshot
 class GetData {
     fun get(): Task<QuerySnapshot>? {
         val userUID = mUser?.uid as String
-        return FirebaseUtils.userDatabase?.collection("USCCMembers/${userUID}/personData")
+        return FirebaseUtils.userDatabase?.collection("USCCBeta/${userUID}/personData")
             ?.orderBy("timeStamp", Query.Direction.DESCENDING)
             ?.get()
     }
