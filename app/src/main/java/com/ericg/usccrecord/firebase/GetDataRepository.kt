@@ -9,10 +9,10 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
-class GetData {
+class GetDataRepository {
     fun get(): Task<QuerySnapshot>? {
         val userUID = mUser?.uid as String
-        return FirebaseUtils.userDatabase?.collection("USCCBeta/${userUID}/personData")
+        return FirebaseUtils.userDatabase?.collection("USCCRecord/${userUID}/personData")
             ?.orderBy("timeStamp", Query.Direction.DESCENDING)
             ?.get()
     }

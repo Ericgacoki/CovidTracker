@@ -43,12 +43,7 @@ class PersonDataAdapter(
 
         val currentPerson = peopleDataList[position]
         holder.bind(
-            currentPerson.name,
-            currentPerson.gender,
-            currentPerson.age,
-            currentPerson.temp,
-            currentPerson.phone,
-            currentPerson.date
+            currentPerson
         )
 
         context = holder.itemView.context
@@ -91,24 +86,18 @@ class PersonDataAdapter(
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(
-            name: String,
-            gender: String,
-            age: Int,
-            temp: Float,
-            phone: String,
-            date: String?
-
+            personData: PersonData
         ) {
-            this.personName.text = name
-            this.gender.text = gender
-            this.age.text = "$age Yrs"
-            this.tempIndicatorText.text = "$temp *C"
-            this.phone.text = phone
-            this.date.text = date
+            this.personName.text = personData.name
+            this.gender.text = personData.gender
+            this.age.text = "${personData.age} Yrs"
+            this.tempIndicatorText.text = "${personData.temp} *C"
+            this.phone.text = personData.phone
+            this.date.text = personData.date
 
             /* set temp indicator */
 
-            if (temp <= 37.5) {
+            if (personData.temp <= 37.5) {
                 this.tempIndicatorDot.setImageDrawable(context?.let {
                     ContextCompat.getDrawable(it, R.drawable.ic_safe_dot)
                 })
@@ -119,7 +108,7 @@ class PersonDataAdapter(
             }
             /* set profile pic */
 
-            if (gender.toLowerCase(Locale.ROOT) == "male") {
+            if (personData.gender.toLowerCase(Locale.ROOT) == "male") {
                 this.personProfilePic.setImageDrawable(context?.let {
                     ContextCompat.getDrawable(it, R.drawable.man_mask)
                 })

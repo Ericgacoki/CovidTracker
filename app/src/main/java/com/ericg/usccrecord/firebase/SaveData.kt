@@ -21,7 +21,7 @@ class SaveData {
         GlobalScope.launch(Dispatchers.IO) {
             /* first create a real document (by adding a dummy field)*/
 
-            userDatabase?.document("USCCBeta/${userUID}")?.apply {
+            userDatabase?.document("USCCRecord/${userUID}")?.apply {
                 set(hashMapOf("this doc" to "is real"))
 
                 collection("personData").document(docId)
