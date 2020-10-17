@@ -38,7 +38,7 @@ import com.ericg.usccrecord.extensions.Extensions.toast
 import com.ericg.usccrecord.extensions.Extensions.viewMap
 import com.ericg.usccrecord.firebase.FirebaseUtils.mUser
 import com.ericg.usccrecord.firebase.FirebaseUtils.userDatabase
-import com.ericg.usccrecord.firebase.GetData
+import com.ericg.usccrecord.firebase.GetDataRepository
 import com.ericg.usccrecord.firebase.SaveData
 import com.ericg.usccrecord.model.PersonData
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -85,8 +85,9 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
     private val genders: Array<String> = arrayOf("Male", "Female")
     private val locations: Array<String> = arrayOf(
-        "Githure", "Gituba", "Kiamutugu", "Ngariama", "Gitemani", "Kiamugumo",
-        "kajuu", "Nyangeni", "Kiriko", "Ngerwe", "Gaciongo", "Karinga", "Other"
+        "Githure", "Gituba", "Kiamutugu", "Ngariama", "Gitemani", "Kiamugumo", "Kibai",
+        "Kiamwambia", "Karimikui", "Makutano", "Kiangoro", "Mogani", "Kiaduma", "Gacagoni",
+        "Mogani", "kajuu", "Nyangeni", "Kiriko", "Ngerwe", "Gaciongo", "Karinga", "Other"
     )
 
     var peopleList: List<PersonData> = ArrayList()
@@ -99,7 +100,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         setContentView(R.layout.activity_home)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            title = " USCC [Beta]"
+            title = " USCC Record"
         }
         personDataRecyclerview.adapter = personDataAdapter
 
@@ -242,7 +243,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                         val temp = personTemp.text.toString().toFloat()
 
                         /**@__IMPORTANT__ generate a string that will be used as the id of the person document and as a field too */
-                        val docId = userDatabase?.collection("USCCMembers/${mUser?.uid}/personData")
+                        val docId = userDatabase?.collection("USCCRecord/${mUser?.uid}/personData")
                             ?.document()?.id
 
                         val personData =
@@ -418,7 +419,6 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         }
     }
 
-
     private fun onScroll() {
         personDataRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -456,7 +456,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         fun getData() {
             complete.value = false
 
-            GetData().get()?.addOnCompleteListener {
+            GetDataRepository().get()?.addOnCompleteListener {
                 complete.value = true
                 if (it.isSuccessful) {
 
@@ -534,7 +534,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                     setMessage("Are you sure to delete $name ?")
                     setPositiveButton("Yes") { _, _ ->
 
-                        userDatabase?.collection("USCCMembers/${mUser?.uid}/personData")
+                        userDatabase?.collection("USCCRecord/${mUser?.uid}/personData")
                             ?.document(peopleList[position].docId!!)?.delete()
                         loadData(false).observe(this@HomeActivity, { complete ->
                             if (complete) {
