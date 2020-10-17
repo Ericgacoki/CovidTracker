@@ -46,6 +46,14 @@ data class PersonData(
             "kiriko" -> "0,0"
             "karinga" -> "0,0"
             "kiamugumo" -> "-0.430787,37.411841"
+            "kibai" -> "0,0"
+            "kiamwambia" -> "0,0"
+            "karimikui" -> "0,0"
+            "nakutano" -> "0,0"
+            "kiangoro" -> "0,0"
+            "kiaduma" -> "0,0"
+            "gacagoni" -> "0,0"
+            "mogani" -> "0,0"
 
             "other" -> "0,0"
             /*set githure code as default*/
