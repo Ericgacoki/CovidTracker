@@ -103,10 +103,10 @@ object Extensions {
     fun Activity.connectOn(platform: String) {
         when (platform) {
             "twitter" -> {
-                browse("https://twitter.com")
+                browse("https://twitter.com/eric_gacoki")
             }
             "linkedIn" -> {
-                browse("https://linkedIn.com/Ericgacoki")
+                browse("https://www.linkedin.com/in/eric-gacoki-721aab191/?originalSubdomain=ke")
             }
             "gitHub" -> {
                 browse("https://github.com/Ericgacoki")
