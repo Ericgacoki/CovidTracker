@@ -191,7 +191,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
             btmSheetView.apply {
                 inputs = arrayOf(
-                    personName, personPhone, personTemp, personAge
+                    personName, personPhone, personTemp/*, personAge*/
                 )
                 this.genderSpinner.apply {
                     adapter = ArrayAdapter(
@@ -235,11 +235,11 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
 
                     notEmpty = personName.text.toString().trim().isNotEmpty() &&
                             personPhone.text.toString().trim().isNotEmpty() &&
-                            personTemp.text.toString().trim().isNotEmpty() &&
-                            personAge.text.toString().trim().isNotEmpty()
+                            personTemp.text.toString().trim().isNotEmpty() /*&&
+                            personAge.text.toString().trim().isNotEmpty()*/
 
                     if (notEmpty) {
-                        val age = personAge.text.toString().toInt()
+                        /* val age = personAge.text.toString().toInt()*/
                         val temp = personTemp.text.toString().toFloat()
 
                         /**@__IMPORTANT__ generate a string that will be used as the id of the person document and as a field too */
@@ -251,7 +251,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                                 docId,
                                 name,
                                 gender,
-                                age,
+                                /* age,*/
                                 temp,
                                 phone,
                                 locationName,
@@ -423,7 +423,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
         personDataRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                /*  capture a bottom-to-top scroll ie a positive change in y-axis */
+/*  capture a bottom-to-top scroll ie a positive change in y-axis */
                 if (dy > dx) {
                     btnAddPerson.startAnimation(
                         AnimationUtils.loadAnimation(
@@ -543,7 +543,7 @@ class HomeActivity : AppCompatActivity(), PersonDataAdapter.PersonClickListener 
                         })
                     }
                     setNegativeButton("No") { _, _ ->
-                        /* dismiss the dialog*/
+/* dismiss the dialog*/
                     }
                     create().show()
                 }

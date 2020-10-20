@@ -67,7 +67,7 @@ class PersonDataAdapter(
         private val personProfilePic: CircleImageView = itemView.personProfilePic
         private val personName: TextView = itemView.personName
         private val gender: TextView = itemView.gender
-        private val age: TextView = itemView.age
+       /* private val age: TextView = itemView.age*/
         private val phone: TextView = itemView.phone
         private val date: TextView = itemView.date
 
@@ -90,7 +90,7 @@ class PersonDataAdapter(
         ) {
             this.personName.text = personData.name
             this.gender.text = personData.gender
-            this.age.text = "${personData.age} Yrs"
+            /*this.age.text = "${personData.age} Yrs"*/
             this.tempIndicatorText.text = "${personData.temp} *C"
             this.phone.text = personData.phone
             this.date.text = personData.date

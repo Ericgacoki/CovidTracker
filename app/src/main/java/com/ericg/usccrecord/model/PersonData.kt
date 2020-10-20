@@ -21,7 +21,7 @@ data class PersonData(
     val docId: String?,
     val name: String,
     val gender: String,
-    val age: Int,
+    /* val age: Int,*/
     val temp: Float,
     val phone: String,
     var locationName: String?,
@@ -62,5 +62,5 @@ data class PersonData(
     }
 
     /**@important for fireStore data objects */
-    constructor() : this("", "", "", 0, 0F, "", null, null, null, null)
+    constructor() : this("", "", "", 0F, "", null, null, null, null)
 }

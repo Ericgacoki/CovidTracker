@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2020. This software is owned by @Eric_gacoki
   -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/createPersonInputsLay"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:id="@+id/createPersonInputsLay"
     android:background="@drawable/person_inputs_bg"
     android:theme="@style/ThemeMaterialComponents">
 
@@ -27,9 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="textPhone"
-            android:hint="@string/phone"
             android:drawableStart="@drawable/ic_phone"
             android:drawablePadding="5dp"
+            android:hint="@string/phone"
             android:importantForAutofill="yes"
             android:inputType="number"
             android:maxLength="10"
@@ -41,8 +40,8 @@
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_marginVertical="15dp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp"
         android:textColorHint="@color/colorHint"
         app:hintEnabled="true"
         app:layout_constraintEnd_toEndOf="@+id/btnCancelEntry"
@@ -54,9 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="textName"
-            android:hint="@string/hint_name"
             android:drawableStart="@drawable/ic_edit"
             android:drawablePadding="5dp"
+            android:hint="@string/hint_name"
             android:importantForAutofill="yes"
             android:inputType="textPersonName"
             android:maxLength="25"
@@ -69,21 +68,21 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="15dp"
         android:textColorHint="@color/colorHint"
         app:hintEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnSaveNewEntry"
+        app:layout_constraintTop_toTopOf="@+id/genderSpinner"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+        app:layout_constraintVertical_bias="0">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/personTemp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/temp"
             android:drawableStart="@drawable/ic_temp"
             android:drawablePadding="5dp"
+            android:hint="@string/temp"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
             android:maxLength="5"
@@ -97,87 +96,87 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gender"
+        android:layout_marginTop="10dp"
         android:textColor="@color/colorBlack"
-        app:layout_constraintBottom_toTopOf="@+id/genderSpinner"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout3"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/genderSpinner"
         android:layout_width="0dp"
-        android:textAlignment="textStart"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
+        android:layout_marginVertical="10dp"
+        android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/personGender"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintTop_toBottomOf="@+id/personGender" />
 
     <TextView
         android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/location"
         android:textColor="@color/colorBlack"
-        app:layout_constraintBottom_toTopOf="@+id/locationSpinner"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/personGender"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/locationSpinner"
         android:layout_width="0dp"
-        android:textAlignment="textStart"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+        android:layout_marginVertical="10dp"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancelEntry"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/tvLocation"
-        app:layout_constraintTop_toBottomOf="@+id/genderSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/tvLocation"
         app:layout_constraintVertical_bias="1" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"
-        android:textColorHint="@color/colorHint"
-        app:hintEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveNewEntry"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+    <!--  age was considered too critical
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/personAge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/age"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:maxLength="2"
-            android:drawableStart="@drawable/ic_age"
-            android:drawablePadding="5dp"
-            android:textColor="@color/colorBlack" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/textInputLayout4"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="15dp"
+          android:layout_marginBottom="20dp"
+          android:textColorHint="@color/colorHint"
+          app:hintEnabled="true"
+          app:layout_constraintBottom_toTopOf="@+id/btnSaveNewEntry"
+          app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+          app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+          app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:visibility="invisible"
+              android:id="@+id/personAge"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/age"
+              android:importantForAutofill="no"
+              android:inputType="number"
+              android:maxLength="2"
+              android:drawableStart="@drawable/ic_age"
+              android:drawablePadding="5dp"
+              android:textColor="@color/colorBlack" />
+      </com.google.android.material.textfield.TextInputLayout>-->
 
     <Button
         android:id="@+id/btnCancelEntry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/btn_cancel_bg"
         android:text="@string/cancel"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginBottom="15dp"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnSaveNewEntry"
@@ -190,10 +189,10 @@
         android:id="@+id/btnSaveNewEntry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_save_bg"
-        android:text="@string/save"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="7dp"
+        android:background="@drawable/btn_save_bg"
+        android:text="@string/save"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="@+id/btnCancelEntry"
