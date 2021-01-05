@@ -1,6 +1,6 @@
 # uscc_test_record
 This app helps USCC (united saints christian church) to keep a clean record of their service attendees and the respective data particularly
-during this Covid-19 era. Safe Cloud storage, realtime updates and simplified, beautiful user interface are among the many services that this app offers.
+during the Covid-19 era. Safe Cloud storage, realtime updates and simplified, beautiful user interface are among the many services that this app offers.
 
 ### See the documentation below
 
