@@ -6,7 +6,7 @@ during the Covid-19 era. Safe Cloud storage, realtime updates and simplified, be
 
 ## [User Guide]() (Basics of USCC App)
 
-* Pre-requirements
+* Prerequirements
 
 - [x] Android device or an emulator running MarshMallow (API 23) and above
 - [x] Access to internet (required only when signing in or performing a data sync)
