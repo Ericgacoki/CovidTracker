@@ -1,15 +1,15 @@
 # uscc_test_record
 This app helps USCC (united saints christian church) to keep a clean record of their service attendees and the respective data particularly
-during this Covid-19 era. Safe Cloud storage, realtime updates and simplified, beautiful user interface are among the many services that this app offers.
+during the Covid-19 era. Safe Cloud storage, realtime updates and simplified, beautiful user interface are among the many services that this app offers.
 
 ### See the documentation below
 
 ## [User Guide]() (Basics of USCC App)
 
-* Pre-requirements
+* Prerequirements
 
-- Android device or an emulator running MarshMallow (API 23) and above
-- Access to internet (required only when signing in or performing a data sync)
+- [x] Android device or an emulator running MarshMallow (API 23) and above
+- [x] Access to internet (required only when signing in or performing a data sync)
 
 
 # 1.
