@@ -1,12 +1,8 @@
-⚠️ DISCLAIMER: This project is no longer maintained⚠️
-
-# uscc_test_record
-This app helps USCC (united saints christian church) to keep a clean record of their service attendees and the respective data particularly
-during the Covid-19 era. Safe Cloud storage, realtime updates and simplified, beautiful user interface are among the many services that this app offers.
-
+# Covid Tracker
+This app aims to keep a clean health status record of people (with regards to Covid-19) within a common area. Safe cloud storage, realtime updates and simplified user interface are among the many services that this app offers. 
 ### See the documentation below
 
-## [User Guide]() (Basics of USCC App)
+## Guide
 
 * Prerequirements
 
